@@ -1,5 +1,4 @@
 import { createLocalReq, getPayload } from 'payload'
-import { seed } from '@/endpoints/seed'
 import config from '@payload-config'
 import { headers } from 'next/headers'
 
@@ -28,8 +27,6 @@ export async function POST(
     // Create a Payload request object to pass to the Local API for transactions
     // At this point you should pass in a user, locale, and any other context you need for the Local API
     const payloadReq = await createLocalReq({ user }, payload)
-
-    await seed({ payload, req: payloadReq })
 
     return Response.json({ success: true })
   } catch {

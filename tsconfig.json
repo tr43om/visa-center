@@ -36,6 +36,13 @@
       "@/*": [
         "./src/*"
       ],
+      "@media/*": [
+        "./public/media/*"
+      ],
+      "@public/*": [
+        "./public/*"
+      ],
+      
     }
   },
   "include": [

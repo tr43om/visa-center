@@ -1,6 +1,7 @@
 import type { Field } from 'payload'
 
 import {
+  BoldFeature,
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
@@ -35,6 +36,10 @@ export const hero: Field = {
           label: 'Low Impact',
           value: 'lowImpact',
         },
+        {
+          label: 'Home Hero',
+          value: 'homeHero',
+        },
       ],
       required: true,
     },
@@ -61,9 +66,6 @@ export const hero: Field = {
     {
       name: 'media',
       type: 'upload',
-      admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
-      },
       relationTo: 'media',
       required: true,
     },
