@@ -234,7 +234,7 @@
     "iso_code3": "VUT"
   },
   {
-    "flag_url": "//upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_the_Vatican_City.svg/20px-Flag_of_the_Vatican_City.svg",
+    "flag_url": "//upload.wikimedia.org/wikipedia/commons/0/00/Flag_of_the_Vatican_City.svg/Flag_of_the_Vatican_City.svg",
     "name_ru": "Ватикан",
     "iso_code2": "VA",
     "iso_code3": "VAT"
@@ -607,7 +607,7 @@
   },
   {
     "flag_url": "//upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg ",
-    "name_ru": "КНР",
+    "name_ru": "Китай",
     "iso_code2": "CN",
     "iso_code3": "CHN"
   },
@@ -1421,7 +1421,7 @@
     "iso_code3": "CHL"
   },
   {
-    "flag_url": "//upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Switzerland.svg/20px-Flag_of_Switzerland.svg",
+    "flag_url": "//upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Switzerland.svg",
     "name_ru": "Швейцария",
     "iso_code2": "CH",
     "iso_code3": "CHE"

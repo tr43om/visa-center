@@ -25,13 +25,6 @@ export const VisaHero = (data: VisaHeroProps) => {
       <div className="   pt-[100px] pb-[40px] ">
         <div className="grid gap-8">
           <div className="max-w-[40rem] space-y-2">
-            {/* {richText && (
-              <RichText
-                data={richText}
-                enableGutter={false}
-                className="text-white m-0 max-w-96 md:max-w-md [&>h1]:font-extrabold md:[&>h1]:text-5xl [&>h1]:text-4xl space-y-2 md:[&>p]:text-xl"
-              />
-            )} */}
             <h1 className="font-extrabold md:text-5xl text-4xl   text-white">
               Оформление визы <br /> в {visa.label}
             </h1>
@@ -92,7 +85,7 @@ export const VisaHero = (data: VisaHeroProps) => {
             before:opacity-75"
         width={250}
       />
-      {visa.cover && (
+      {visa.content.cover && (
         <Media
           imgClassName={cn("-z-10 object-cover  opacity-25  before:content-['']")}
           fill
@@ -103,7 +96,7 @@ export const VisaHero = (data: VisaHeroProps) => {
             before:-z-10
             before:opacity-65"
           priority
-          resource={visa.cover}
+          resource={visa.content.cover}
         />
       )}
     </div>

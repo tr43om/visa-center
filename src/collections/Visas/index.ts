@@ -1,21 +1,22 @@
 import { CollectionConfig } from 'payload'
-import { PayloadCountrySelect } from '@/components/PayloadCountrySelect'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { slugField } from '@/fields/slug'
 import { revalidateVisa } from './hooks/revalidateVisa'
+
 import {
-  FixedToolbarFeature,
-  HeadingFeature,
-  HorizontalRuleFeature,
-  InlineToolbarFeature,
-  lexicalEditor,
-} from '@payloadcms/richtext-lexical'
+  MetaDescriptionField,
+  MetaImageField,
+  MetaTitleField,
+  OverviewField,
+  PreviewField,
+} from '@payloadcms/plugin-seo/fields'
+import { metaFields } from '@/fields/meta'
 
 export const Visas: CollectionConfig = {
   slug: 'visas',
   admin: {
     useAsTitle: 'label',
-    defaultColumns: ['name', 'image', 'slug'],
+    defaultColumns: ['slug'],
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
@@ -43,6 +44,7 @@ export const Visas: CollectionConfig = {
     update: () => true,
     delete: () => true,
   },
+
   fields: [
     {
       name: 'cover',
@@ -55,40 +57,12 @@ export const Visas: CollectionConfig = {
       label: 'Выберите страну',
       type: 'text',
       admin: {
-        components: { Field: '@/components/PayloadCountrySelect/index.tsx#PayloadCountrySelect' },
+        components: {
+          Field: '@/components/PayloadCountrySelect/index.tsx#PayloadCountrySelect',
+        },
       },
       required: true,
     },
-    {
-      name: 'content',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-            HorizontalRuleFeature(),
-          ]
-        },
-      }),
-      label: false,
-    },
-
-    {
-      name: 'area',
-      label: 'Регион',
-      type: 'radio',
-      options: [
-        { label: 'Шенген', value: 'schengen' },
-        { label: 'Азия', value: 'asia' },
-        { label: 'Другие', value: 'other' },
-      ],
-      defaultValue: 'other',
-      required: true,
-    },
-    { name: 'imagePosition', type: 'number', label: 'Положение обложки' },
 
     {
       name: 'types',
@@ -135,20 +109,31 @@ export const Visas: CollectionConfig = {
       minRows: 1,
       maxRows: 10,
     },
+    metaFields,
 
     {
+      name: 'category',
+      label: 'Категория',
+      required: true,
+      type: 'relationship',
+      admin: {
+        position: 'sidebar',
+      },
+      relationTo: 'categories',
+    },
+    {
       type: 'collapsible',
-      label: 'Meta',
+      label: 'Автозаполняемые поля',
 
       fields: [
         {
-          name: 'label',
-          label: 'Название страны',
+          name: 'href',
           type: 'text',
           required: true,
         },
         {
-          name: 'href',
+          name: 'label',
+          label: 'Название страны',
           type: 'text',
           required: true,
         },

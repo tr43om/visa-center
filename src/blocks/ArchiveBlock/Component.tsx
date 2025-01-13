@@ -1,4 +1,4 @@
-import type { Post, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
+import type { Visa, ArchiveBlock as ArchiveBlockProps } from '@/payload-types'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -6,6 +6,7 @@ import React from 'react'
 import RichText from '@/components/RichText'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
+import { VisasShowcase } from '../visas-showcase/Component'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
@@ -14,20 +15,24 @@ export const ArchiveBlock: React.FC<
 > = async (props) => {
   const { id, categories, introContent, limit: limitFromProps, populateBy, selectedDocs } = props
 
+  const payload = await getPayload({ config: configPromise })
+
+  const allCategories = await payload.find({ collection: 'categories', depth: 1, draft: true })
+
   const limit = limitFromProps || 3
 
-  let posts: Post[] = []
+  let visas: Visa[] = []
 
   if (populateBy === 'collection') {
-    const payload = await getPayload({ config: configPromise })
-
     const flattenedCategories = categories?.map((category) => {
       if (typeof category === 'object') return category.id
       else return category
     })
 
-    const fetchedPosts = await payload.find({
-      collection: 'posts',
+    const fetchedVisas = await payload.find({
+      collection: 'visas',
+
+      draft: true,
       depth: 1,
       limit,
       ...(flattenedCategories && flattenedCategories.length > 0
@@ -41,25 +46,20 @@ export const ArchiveBlock: React.FC<
         : {}),
     })
 
-    posts = fetchedPosts.docs
+    visas = fetchedVisas.docs
   } else {
     if (selectedDocs?.length) {
-      const filteredSelectedPosts = selectedDocs.map((post) => {
-        if (typeof post.value === 'object') return post.value
-      }) as Post[]
+      const filteredSelectedVisas = selectedDocs.map((visa) => {
+        if (typeof visa.value === 'object') return visa.value
+      }) as Visa[]
 
-      posts = filteredSelectedPosts
+      visas = filteredSelectedVisas
     }
   }
 
   return (
-    <div className="my-16" id={`block-${id}`}>
-      {introContent && (
-        <div className="container mb-16">
-          <RichText className="ml-0 max-w-[48rem]" data={introContent} enableGutter={false} />
-        </div>
-      )}
-      <CollectionArchive posts={posts} />
-    </div>
+    <section className="container max-w-7xl -my-4 z-50 relative">
+      <VisasShowcase docs={visas} categories={allCategories.docs} />
+    </section>
   )
 }

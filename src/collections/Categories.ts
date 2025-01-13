@@ -20,5 +20,6 @@ export const Categories: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    { name: 'cover', type: 'upload', relationTo: 'media', label: 'Обложка' },
   ],
 }

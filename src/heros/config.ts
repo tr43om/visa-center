@@ -1,7 +1,6 @@
 import type { Field } from 'payload'
 
 import {
-  BoldFeature,
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
@@ -17,24 +16,17 @@ export const hero: Field = {
     {
       name: 'type',
       type: 'select',
-      defaultValue: 'lowImpact',
+      defaultValue: 'homeHero',
       label: 'Type',
       options: [
         {
           label: 'None',
           value: 'none',
         },
+
         {
-          label: 'High Impact',
-          value: 'highImpact',
-        },
-        {
-          label: 'Medium Impact',
-          value: 'mediumImpact',
-        },
-        {
-          label: 'Low Impact',
-          value: 'lowImpact',
+          label: 'Visa Hero',
+          value: 'visa',
         },
         {
           label: 'Home Hero',

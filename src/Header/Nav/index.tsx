@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import type { Header as HeaderType, Visa } from '@/payload-types'
+import type { Category, Header as HeaderType, Visa } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import Link from 'next/link'
@@ -25,6 +25,7 @@ import { RiMenu3Line } from '@remixicon/react'
 
 type HeaderNavProps = {
   navItems: Visa[]
+  categories: Category[]
 }
 
 const desktop = '(min-width: 768px)'
@@ -32,9 +33,7 @@ const desktop = '(min-width: 768px)'
 export const HeaderNav: React.FC<{ data: HeaderNavProps }> = ({ data }) => {
   const isDesktop = useMediaQuery(desktop)
   const navItems = data?.navItems || []
-  const schengenNavItems = navItems.filter((item) => item.area === 'schengen') || []
-  const asiaNavItems = navItems.filter((item) => item.area === 'asia') || []
-  const otherNavItems = navItems.filter((item) => item.area === 'other') || []
+  const categories = data?.categories || []
 
   return (
     <>
@@ -42,8 +41,9 @@ export const HeaderNav: React.FC<{ data: HeaderNavProps }> = ({ data }) => {
         <NavigationMenu>
           <NavigationMenuList asChild>
             <nav className="flex gap-3 items-center">
-              <AreaList data={schengenNavItems} area="schengen" />
-              <AreaList data={asiaNavItems} area="asia" />
+              {categories.map((category) => (
+                <AreaList key={category.id} category={category} navItems={navItems} />
+              ))}
             </nav>
           </NavigationMenuList>
         </NavigationMenu>
@@ -61,8 +61,9 @@ export const HeaderNav: React.FC<{ data: HeaderNavProps }> = ({ data }) => {
             </DrawerHeader>
             <ScrollArea className="p-4 max-h-[60vh] overflow-auto">
               <nav className="grid md:flex gap-3 items-center">
-                <AreaList data={schengenNavItems} area="schengen" />
-                <AreaList data={asiaNavItems} area="asia" />
+                {categories.map((category) => (
+                  <AreaList key={category.id} category={category} navItems={navItems} />
+                ))}
               </nav>
             </ScrollArea>
           </DrawerContent>

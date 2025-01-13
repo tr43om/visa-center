@@ -5,42 +5,26 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu'
 import Link from 'next/link'
-import { NavItem } from './types'
 import { NavigationMenuItem } from '@/components/ui/navigation-menu'
-import { Visa } from '@/payload-types'
-import schengen_image from '@media/schengen.webp'
-import Image, { StaticImageData } from 'next/image'
+import { Category, Visa } from '@/payload-types'
+import Image from 'next/image'
 import { useMediaQuery } from '@/hooks/use-media-query'
-import { cn } from '@/utilities'
+import { Media } from '@/components/Media'
 
 type AreaListProps = {
-  area: NonNullable<Visa['area']>
-  data: Visa[]
-}
-
-const areas_info: {
-  [key in NonNullable<Visa['area']>]: { label: string; cover: StaticImageData }
-} = {
-  schengen: {
-    label: 'Шенген',
-    cover: schengen_image,
-  },
-  asia: {
-    label: 'Азия',
-    cover: schengen_image,
-  },
-  other: {
-    label: 'Другие',
-    cover: schengen_image,
-  },
+  navItems: Visa[]
+  category: Category
 }
 
 const desktop = '(min-width: 768px)'
 
-export const AreaList = ({ data, area }: AreaListProps) => {
+export const AreaList = ({ navItems, category }: AreaListProps) => {
   const isDesktop = useMediaQuery(desktop)
-  const title = areas_info[area].label
-  const cover = areas_info[area].cover
+  const title = category.title
+  const cover = category.cover
+  const filteredNavItems = navItems.filter(
+    (item) => (item.category as Category).title === category.title,
+  )
 
   return (
     <>
@@ -57,20 +41,23 @@ export const AreaList = ({ data, area }: AreaListProps) => {
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-4 no-underline outline-none focus:shadow-md relative overflow-hidden before:block before:absolute before:inset-0  before:z-10 before:bg-gradient-to-t before:from-zinc-900/30 "
                     href="/"
                   >
-                    <Image
-                      src={cover}
-                      alt="Обложка для меню виз"
-                      width={300}
-                      className="absolute inset-0 w-full h-full"
-                    />
+                    {cover && (
+                      <Media
+                        resource={cover}
+                        fill
+                        imgClassName="absolute inset-0 w-full h-full w-[300px]"
+                      />
+                    )}
                     <div className="text-white z-20">
                       <div className="mb-2 mt-4 text-2xl font-bold">{title}</div>
-                      <p className="text-sm leading-tight ">Делаем визы в {data.length} стран</p>
+                      <p className="text-sm leading-tight ">
+                        Делаем визы в {filteredNavItems.length} стран
+                      </p>
                     </div>
                   </Link>
                 </NavigationMenuLink>
               </li>
-              {data.map((visa) => (
+              {filteredNavItems.map((visa) => (
                 <ListItem key={visa.id} href={visa.href} title={visa.label}></ListItem>
               ))}
             </ul>
@@ -84,19 +71,22 @@ export const AreaList = ({ data, area }: AreaListProps) => {
                 className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-4 no-underline outline-none focus:shadow-md relative overflow-hidden before:block before:absolute before:inset-0  before:z-10 before:bg-gradient-to-t before:from-zinc-900/30 "
                 href="/"
               >
-                <Image
-                  src={cover}
-                  alt="Обложка для меню виз"
-                  width={300}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
+                {cover && (
+                  <Media
+                    resource={cover}
+                    fill
+                    imgClassName="absolute inset-0 w-full h-full w-[300px]"
+                  />
+                )}
                 <div className="text-white z-20">
                   <div className="mb-2 mt-4 text-2xl font-bold">{title}</div>
-                  <p className="text-sm leading-tight ">Делаем визы в {data.length} стран</p>
+                  <p className="text-sm leading-tight ">
+                    Делаем визы в {filteredNavItems.length} стран
+                  </p>
                 </div>
               </Link>
             </li>
-            {data.map((visa) => (
+            {filteredNavItems.map((visa) => (
               <li key={visa.id}>
                 <Link
                   href={visa.href}

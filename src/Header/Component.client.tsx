@@ -4,16 +4,17 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-import type { Header, Visa } from '@/payload-types'
+import type { Category, Header, Visa } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
 
 interface HeaderClientProps {
   data: Visa[]
+  categories: Category[]
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({ data, categories }) => {
   /* Storing the value in a useState to avoid hydration errors */
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
@@ -38,7 +39,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         <Link href="/">
           <Logo loading="eager" priority="high" />
         </Link>
-        <HeaderNav data={{ navItems: data }} />
+        <HeaderNav data={{ navItems: data, categories }} />
       </div>
     </header>
   )

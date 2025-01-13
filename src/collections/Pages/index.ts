@@ -3,11 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
-import { CallToAction } from '../../blocks/CallToAction/config'
-import { Content } from '../../blocks/Content/config'
-import { FormBlock } from '../../blocks/Form/config'
-import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { Feature } from '../../blocks/Feature/config'
+
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -21,13 +17,16 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import { VisasShowcase } from '@/blocks/visas-showcase/config'
+import { WhyUs } from '@/blocks/why-us/config'
+import { anyone } from '@/access/anyone'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
   access: {
     create: authenticated,
     delete: authenticated,
-    read: authenticatedOrPublished,
+    read: anyone,
     update: authenticated,
   },
   // This config controls what's populated by default when a page is referenced
@@ -38,7 +37,7 @@ export const Pages: CollectionConfig<'pages'> = {
     slug: true,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'slug'],
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
@@ -76,7 +75,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, Feature],
+              blocks: [Archive, VisasShowcase, WhyUs],
               required: true,
               admin: {
                 initCollapsed: true,
