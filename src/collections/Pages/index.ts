@@ -17,9 +17,9 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
-import { VisasShowcase } from '@/blocks/visas-showcase/config'
 import { WhyUs } from '@/blocks/why-us/config'
 import { anyone } from '@/access/anyone'
+import { PopularDestinations } from '@/blocks/PopularDestinations/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -75,7 +75,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [Archive, VisasShowcase, WhyUs],
+              blocks: [Archive, WhyUs, PopularDestinations],
               required: true,
               admin: {
                 initCollapsed: true,

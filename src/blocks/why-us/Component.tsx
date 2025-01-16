@@ -6,13 +6,27 @@ import type { Media as MediaType, WhyUsBlock as WhyUsBlockProps } from '@/payloa
 
 import { CMSLink } from '../../components/Link'
 import { Media } from '@/components/Media'
+import { Block } from 'payload'
 
-export const WhyUsBlock: React.FC<WhyUsBlockProps> = (props) => {
-  const { apart, together } = props
+export const WhyUsBlock: React.FC<
+  WhyUsBlockProps & {
+    id?: string
+  }
+> = (props) => {
+  const { apart, together, introContent } = props
 
   const columns = [apart, together]
   return (
     <div className="container max-w-7xl my-8">
+      <header className="mb-4">
+        {introContent && (
+          <RichText
+            data={introContent}
+            enableGutter={false}
+            className="text-zinc-800 [&>p]:text-zinc-600 m-0  [&>h2]:m-0   [&>h2]:font-extrabold md:[&>h2]:text-3xl [&>h2]:text-xl space-y-2 md:[&>p]:text-xl"
+          />
+        )}
+      </header>
       <div className="grid lg:grid-cols-2  gap-4 ">
         {columns.map((col, i) => {
           return (

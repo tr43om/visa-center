@@ -5,6 +5,6 @@ import config from '@payload-config'
 export const getCategories = async () => {
   const payload = await getPayload({ config })
 
-  const categories = await payload.find({ collection: 'categories' })
+  const categories = await payload.find({ collection: 'categories', draft: true })
   return categories
 }

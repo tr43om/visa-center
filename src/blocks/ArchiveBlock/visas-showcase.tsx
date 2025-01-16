@@ -13,37 +13,52 @@ type VisasShowcaseProps = {
   categories: Category[]
 }
 
+const getCategoryCount = (docs: Visa[], category: Category) =>
+  docs.filter((doc) => category.title === (doc.category as Category).title).length
+
 export const VisasShowcase = ({ docs, categories }: VisasShowcaseProps) => {
-  const [tab, setTab] = useState<string>(categories[0].title)
+  const sortedCategories = categories.sort(
+    (a, b) => getCategoryCount(docs, b) - getCategoryCount(docs, a),
+  )
+  const [tab, setTab] = useState<string>(sortedCategories[0].title)
 
   return (
-    <Card>
+    <Card className="bg-white">
       <CardHeader>
-        <CardTitle>Оформляем визы в более чем {docs.length} стран мира</CardTitle>
-        <CardDescription>
+        <CardTitle className='text-zinc-800 font-extrabold md:text-3xl text-xl space-y-2 "'>
+          Оформляем визы в более чем {docs.length} стран мира
+        </CardTitle>
+        <CardDescription className="text-zinc-600 md:text-xl">
           Просто выберите нужную страну из списка, чтобы подробно ознакомиться с информацией
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-0 pb-4">
         <Tabs value={tab} onValueChange={setTab}>
-          <TabsList>
-            {categories.map((category) => (
-              <TabsTrigger key={category.id} value={category.title}>
-                {category.title}
+          <TabsList className="px-4 mb-4">
+            {sortedCategories.map((category) => (
+              <TabsTrigger
+                key={category.id}
+                value={category.title}
+                className="text-xl group flex gap-2 items-center"
+              >
+                {category.title}{' '}
+                <div className="text-sm px-3 border rounded-[5px]">
+                  {getCategoryCount(docs, category)}
+                </div>
               </TabsTrigger>
             ))}
           </TabsList>
-          {categories.map((category) => {
+          {sortedCategories.map((category) => {
             const visas = docs.filter((doc) => tab === (doc.category as Category).title) || []
             return (
               <TabsContent
                 key={category.id}
                 value={category.title}
-                className="mt-4 md:flex    grid gap-2"
+                className="md:flex px-4    grid gap-2"
               >
                 {category.cover && (
                   <Link
-                    className="flex md:h-80   md:min-w-60 md:max-w-96 h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-4 no-underline outline-none focus:shadow-md  relative overflow-hidden before:block before:absolute before:inset-0  before:z-10 before:bg-gradient-to-t before:from-zinc-900/90 "
+                    className="flex md:h-96   md:min-w-60 md:max-w-72 h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-4 no-underline outline-none focus:shadow-md  relative overflow-hidden before:block before:absolute before:inset-0  before:z-10 before:bg-gradient-to-t before:from-zinc-900/90 "
                     href="/"
                   >
                     <Media
@@ -58,7 +73,7 @@ export const VisasShowcase = ({ docs, categories }: VisasShowcaseProps) => {
                     </div>
                   </Link>
                 )}
-                <div className="md:h-80 grid gap-2 xl:grid-cols-3   lg:grid-cols-2 w-full overflow-y-auto">
+                <div className="md:h-96 grid gap-2 xl:grid-cols-3   lg:grid-cols-2 w-full overflow-y-auto">
                   {' '}
                   {visas.map((visa) => (
                     <Link

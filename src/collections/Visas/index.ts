@@ -37,6 +37,11 @@ export const Visas: CollectionConfig = {
   },
   defaultPopulate: {
     slug: true,
+    href: true,
+    label: true,
+    cover: true,
+    value: true,
+    imgUrl: true,
   },
   access: {
     read: () => true,

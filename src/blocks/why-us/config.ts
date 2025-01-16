@@ -52,6 +52,21 @@ export const WhyUs: Block = {
   interfaceName: 'WhyUsBlock',
   fields: [
     {
+      name: 'introContent',
+      type: 'richText',
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ]
+        },
+      }),
+      label: 'Intro Content',
+    },
+    {
       type: 'tabs',
       tabs: [
         { name: 'apart', label: 'Без нас', fields: columnFields },

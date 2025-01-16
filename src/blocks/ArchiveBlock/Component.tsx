@@ -6,7 +6,8 @@ import React from 'react'
 import RichText from '@/components/RichText'
 
 import { CollectionArchive } from '@/components/CollectionArchive'
-import { VisasShowcase } from '../visas-showcase/Component'
+import { VisasShowcase } from './visas-showcase'
+import { getCategories } from '@/entities/category/category.queries'
 
 export const ArchiveBlock: React.FC<
   ArchiveBlockProps & {
@@ -17,7 +18,7 @@ export const ArchiveBlock: React.FC<
 
   const payload = await getPayload({ config: configPromise })
 
-  const allCategories = await payload.find({ collection: 'categories', depth: 1, draft: true })
+  const allCategories = await getCategories()
 
   const limit = limitFromProps || 3
 
@@ -58,7 +59,7 @@ export const ArchiveBlock: React.FC<
   }
 
   return (
-    <section className="container max-w-7xl -my-4 z-50 relative">
+    <section className="container max-w-7xl -my-12 z-20 relative">
       <VisasShowcase docs={visas} categories={allCategories.docs} />
     </section>
   )

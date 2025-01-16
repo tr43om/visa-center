@@ -7,7 +7,9 @@ import React, { useEffect, useState } from 'react'
 import type { Category, Header, Visa } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
-import { HeaderNav } from './Nav'
+import { BottomNav } from './Nav/bottom-nav'
+import { DesktopNav } from './Nav/desktop-nav'
+import { CallbackFormTrigger } from '@/entities/submission/ui/callback-form-trigger'
 
 interface HeaderClientProps {
   data: Visa[]
@@ -32,15 +34,13 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, categories }) 
 
   return (
     <header
-      className="container  max-w-7xl relative  z-20   "
+      className="left-0 container z-20 -mt-[100px] translate-y-[124px]    max-w-7xl      "
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <div className="py-8 w-full absolute flex gap-4 justify-between md:justify-start">
-        <Link href="/">
-          <Logo loading="eager" priority="high" />
-        </Link>
-        <HeaderNav data={{ navItems: data, categories }} />
-      </div>
+      <Link href="/" className="md:hidden ">
+        <Logo loading="eager" priority="high" />
+      </Link>
+      <DesktopNav categories={categories} data={data} />
     </header>
   )
 }

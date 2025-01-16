@@ -28,7 +28,7 @@ type HomeHeroType =
 export const HomeHero: React.FC<Page['hero']> = ({ richText, media }) => {
   return (
     <div className="overflow-hidden relative container max-w-7xl rounded-md mt-4">
-      <div className="   pt-[100px] pb-[40px] ">
+      <div className="   pt-[140px] md:pt-[100px] pb-[40px] ">
         <div className="grid gap-8">
           <div className="max-w-[40rem]">
             {richText && (
@@ -84,11 +84,8 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, media }) => {
       <Image
         alt="Довольный клиент нашего визового центра уже готова к путешествию. Довольная держит в руке паспорт и билеты "
         src={hero_girl}
-        className="absolute z-20 bottom-8 -right-12 lg:-bottom-72 sm:-bottom-16  sm:w-[350px] lg:w-[600px]  before:content before:absolute
-            before:inset-0
-            before:bg-indigo-500
-            before:z-10
-            before:opacity-75"
+        className="absolute z-20 bottom-8 -right-12 lg:-bottom-72 sm:-bottom-16  sm:w-[350px] lg:w-[600px]  opacity-80
+          "
         width={250}
       />
       {media && typeof media === 'object' && (
@@ -102,7 +99,7 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, media }) => {
             before:block
             before:bg-indigo-700
             before:-z-10
-            before:opacity-75"
+            before:opacity-85"
           priority
           resource={media}
         />

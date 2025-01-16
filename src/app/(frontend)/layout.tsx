@@ -15,6 +15,8 @@ import { draftMode } from 'next/headers'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
+import { CallbackFormTrigger } from '@/entities/submission/ui/callback-form-trigger'
+import { BottomNav } from '@/Header/Nav/bottom-nav'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
@@ -37,6 +39,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Header />
           {children}
           <Footer />
+          <CallbackFormTrigger className=" fixed hidden md:flex bottom-6 right-6 z-50  " />
+          <BottomNav />
         </Providers>
       </body>
     </html>

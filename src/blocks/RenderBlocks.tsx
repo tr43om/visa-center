@@ -5,14 +5,15 @@ import type { Page } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { FormBlock } from '@/blocks/Form/Component'
-import { VisasShowcase } from './visas-showcase/Component'
+import { VisasShowcase } from './ArchiveBlock/visas-showcase'
 import { WhyUsBlock } from './why-us/Component'
+import { PopularDestinations } from './PopularDestinations/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
   formBlock: FormBlock,
-  visasShowcase: VisasShowcase,
   whyUs: WhyUsBlock,
+  popularDestinations: PopularDestinations,
 }
 
 export const RenderBlocks: React.FC<{
@@ -29,12 +30,12 @@ export const RenderBlocks: React.FC<{
           const { blockType } = block
 
           if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType]
+            const Block: any = blockComponents[blockType]
 
             if (Block) {
               return (
-                <div key={index}>
-                  <Block {...block} disableInnerContainer />
+                <div key={index} className="py-8">
+                  <Block {...block} />
                 </div>
               )
             }
