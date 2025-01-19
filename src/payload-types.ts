@@ -17,6 +17,8 @@ export interface Config {
     users: User;
     visas: Visa;
     submissions: Submission;
+    reviews: Review;
+    videos: Video;
     redirects: Redirect;
     search: Search;
     'payload-locked-documents': PayloadLockedDocument;
@@ -31,6 +33,8 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     visas: VisasSelect<false> | VisasSelect<true>;
     submissions: SubmissionsSelect<false> | SubmissionsSelect<true>;
+    reviews: ReviewsSelect<false> | ReviewsSelect<true>;
+    videos: VideosSelect<false> | VideosSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     search: SearchSelect<false> | SearchSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -117,7 +121,7 @@ export interface Page {
       | null;
     media: number | Media;
   };
-  layout: (ArchiveBlock | WhyUsBlock | PopularDestinationsBlock)[];
+  layout: (ArchiveBlock | WhyUsBlock | PopularDestinationsBlock | ReviewsBlock)[];
   meta?: {
     title?: string | null;
     image?: (number | null) | Media;
@@ -152,6 +156,7 @@ export interface Media {
     };
     [k: string]: unknown;
   } | null;
+  _key?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -165,6 +170,7 @@ export interface Media {
   focalY?: number | null;
   sizes?: {
     thumbnail?: {
+      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -173,6 +179,7 @@ export interface Media {
       filename?: string | null;
     };
     square?: {
+      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -181,6 +188,7 @@ export interface Media {
       filename?: string | null;
     };
     small?: {
+      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -189,6 +197,7 @@ export interface Media {
       filename?: string | null;
     };
     medium?: {
+      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -197,6 +206,7 @@ export interface Media {
       filename?: string | null;
     };
     large?: {
+      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -205,6 +215,7 @@ export interface Media {
       filename?: string | null;
     };
     xlarge?: {
+      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -213,6 +224,7 @@ export interface Media {
       filename?: string | null;
     };
     og?: {
+      _key?: string | null;
       url?: string | null;
       width?: number | null;
       height?: number | null;
@@ -425,6 +437,70 @@ export interface PopularDestinationsBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewsBlock".
+ */
+export interface ReviewsBlock {
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  reviews?:
+    | {
+        relationTo: 'reviews';
+        value: number | Review;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'reviews';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews".
+ */
+export interface Review {
+  id: number;
+  platform: 'instagram' | '2gis';
+  visa: number | Visa;
+  video?: (number | null) | Video;
+  text?: string | null;
+  reviewHref?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videos".
+ */
+export interface Video {
+  id: number;
+  text?: string | null;
+  _key?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -536,6 +612,14 @@ export interface PayloadLockedDocument {
         value: number | Submission;
       } | null)
     | ({
+        relationTo: 'reviews';
+        value: number | Review;
+      } | null)
+    | ({
+        relationTo: 'videos';
+        value: number | Video;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -619,6 +703,7 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         whyUs?: T | WhyUsBlockSelect<T>;
         popularDestinations?: T | PopularDestinationsBlockSelect<T>;
+        reviews?: T | ReviewsBlockSelect<T>;
       };
   meta?:
     | T
@@ -705,11 +790,22 @@ export interface PopularDestinationsBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ReviewsBlock_select".
+ */
+export interface ReviewsBlockSelect<T extends boolean = true> {
+  introContent?: T;
+  reviews?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
   caption?: T;
+  _key?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -727,6 +823,7 @@ export interface MediaSelect<T extends boolean = true> {
         thumbnail?:
           | T
           | {
+              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -737,6 +834,7 @@ export interface MediaSelect<T extends boolean = true> {
         square?:
           | T
           | {
+              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -747,6 +845,7 @@ export interface MediaSelect<T extends boolean = true> {
         small?:
           | T
           | {
+              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -757,6 +856,7 @@ export interface MediaSelect<T extends boolean = true> {
         medium?:
           | T
           | {
+              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -767,6 +867,7 @@ export interface MediaSelect<T extends boolean = true> {
         large?:
           | T
           | {
+              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -777,6 +878,7 @@ export interface MediaSelect<T extends boolean = true> {
         xlarge?:
           | T
           | {
+              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -787,6 +889,7 @@ export interface MediaSelect<T extends boolean = true> {
         og?:
           | T
           | {
+              _key?: T;
               url?: T;
               width?: T;
               height?: T;
@@ -871,6 +974,38 @@ export interface SubmissionsSelect<T extends boolean = true> {
   text?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "reviews_select".
+ */
+export interface ReviewsSelect<T extends boolean = true> {
+  platform?: T;
+  visa?: T;
+  video?: T;
+  text?: T;
+  reviewHref?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videos_select".
+ */
+export interface VideosSelect<T extends boolean = true> {
+  text?: T;
+  _key?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

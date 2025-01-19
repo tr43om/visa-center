@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\tr43o\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @payloadcms/email-nodemailer
+  C:\Program Files\nodejs\node.exe C:\Users\tr43o\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add next-video
 
 PATH: 
-  C:\Users\tr43o\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\tr43o\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\ZeroTier\One;C:\Program Files\Go\bin;C:\Program Files\nodejs;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\dotnet;C:\Program Files\WireGuard;C:\Program Files (x86)\cloudflared;C:\Users\tr43o\AppData\Local\pnpm;C:\Users\tr43o\scoop\shims;C:\Users\tr43o\AppData\Local\Microsoft\WindowsApps;C:\Users\tr43o\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\tr43o\go\bin;C:\Users\tr43o\AppData\Roaming\npm;C:\Users\tr43o\AppData\Local\GitHubDesktop\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+  C:\Users\tr43o\AppData\Local\npm-cache\_npx\d1fa9ae7729cdcb2\node_modules\.bin;D:\projects\payload-website\node_modules\.bin;D:\projects\node_modules\.bin;D:\node_modules\.bin;C:\Users\tr43o\AppData\Roaming\npm\node_modules\npm\node_modules\@npmcli\run-script\lib\node-gyp-bin;C:\Users\tr43o\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\tr43o\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Git\cmd;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\ZeroTier\One;C:\Program Files\Go\bin;C:\Program Files\nodejs;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\dotnet;C:\Program Files\WireGuard;C:\Program Files (x86)\cloudflared;C:\Users\tr43o\AppData\Local\pnpm;C:\Users\tr43o\scoop\shims;C:\Users\tr43o\AppData\Local\Microsoft\WindowsApps;C:\Users\tr43o\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\tr43o\go\bin;C:\Users\tr43o\AppData\Roaming\npm;C:\Users\tr43o\AppData\Local\GitHubDesktop\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   1.22.19
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: ENOENT: no such file or directory, copyfile 'C:\Users\tr43o\AppData\Local\Yarn\Cache\v6\npm-glob-7.2.3-b8df0fb802bbfa8e89bd1d938b4e16578ed44f2b-integrity\node_modules\glob\README.md' -> 'D:\projects\payload-website\node_modules\copyfiles\node_modules\glob\README.md'
+  Error: ENOENT: no such file or directory, copyfile 'C:\Users\tr43o\AppData\Local\Yarn\Cache\v6\npm-globals-14.0.0-898d7413c29babcf6bafe56fcadded858ada724e-integrity\node_modules\globals\globals.json' -> 'D:\projects\payload-website\node_modules\@eslint\eslintrc\node_modules\globals\globals.json'
 
 npm manifest: 
   {
@@ -27,6 +27,7 @@ npm manifest:
       "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
       "postbuild": "next-sitemap --config next-sitemap.config.cjs",
       "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+      "email": "email dev --dir ./src/emails",
       "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
       "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
       "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
@@ -38,7 +39,9 @@ npm manifest:
       "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
     },
     "dependencies": {
+      "@hookform/resolvers": "^3.10.0",
       "@payloadcms/db-postgres": "3.9.0",
+      "@payloadcms/email-nodemailer": "^3.17.1",
       "@payloadcms/live-preview-react": "3.9.0",
       "@payloadcms/next": "3.9.0",
       "@payloadcms/payload-cloud": "3.9.0",
@@ -59,6 +62,7 @@ npm manifest:
       "@radix-ui/react-slot": "^1.1.1",
       "@radix-ui/react-tabs": "^1.1.2",
       "@radix-ui/react-toast": "^1.2.4",
+      "@react-email/components": "^0.0.32",
       "@remixicon/react": "^4.6.0",
       "class-variance-authority": "^0.7.1",
       "clsx": "^2.1.1",
@@ -70,6 +74,8 @@ npm manifest:
       "motion": "^11.17.0",
       "next": "^15.1.4",
       "next-sitemap": "^4.2.3",
+      "next-themes": "^0.4.4",
+      "nuqs": "^2.3.1",
       "payload": "3.9.0",
       "payload-admin-bar": "^1.0.6",
       "pg": "^8.13.1",
@@ -79,9 +85,11 @@ npm manifest:
       "react-hook-form": "7.45.4",
       "react-phone-number-input": "^3.4.11",
       "sharp": "0.32.6",
+      "sonner": "^1.7.2",
       "tailwind-merge": "^2.6.0",
       "tailwindcss-animate": "^1.0.7",
-      "vaul": "^1.1.2"
+      "vaul": "^1.1.2",
+      "zod": "^3.24.1"
     },
     "devDependencies": {
       "@eslint/eslintrc": "^3.2.0",
@@ -96,6 +104,7 @@ npm manifest:
       "eslint-config-next": "15.1.0",
       "postcss": "^8.4.49",
       "prettier": "^3.4.2",
+      "react-email": "3.0.6",
       "tailwindcss": "^3.4.17",
       "typescript": "5.7.2"
     },

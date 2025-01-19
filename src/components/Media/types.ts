@@ -7,6 +7,7 @@ export interface Props {
   alt?: string
   className?: string
   fill?: boolean // for NextImage only
+  blurData?: string
   htmlElement?: ElementType | null
   imgClassName?: string
   onClick?: () => void

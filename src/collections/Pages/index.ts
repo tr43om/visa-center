@@ -20,6 +20,7 @@ import {
 import { WhyUs } from '@/blocks/why-us/config'
 import { anyone } from '@/access/anyone'
 import { PopularDestinations } from '@/blocks/PopularDestinations/config'
+import { Reviews } from '@/blocks/Reviews/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -75,7 +76,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [Archive, WhyUs, PopularDestinations],
+              blocks: [Archive, WhyUs, PopularDestinations, Reviews],
               required: true,
               admin: {
                 initCollapsed: true,
