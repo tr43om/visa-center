@@ -36,15 +36,15 @@ export const ArchiveBlock: React.FC<
       draft: true,
       depth: 1,
       limit,
-      ...(flattenedCategories && flattenedCategories.length > 0
-        ? {
-            where: {
-              categories: {
-                in: flattenedCategories,
-              },
-            },
-          }
-        : {}),
+      // ...(flattenedCategories && flattenedCategories.length > 0
+      //   ? {
+      //       where: {
+      //         categories: {
+      //           in: flattenedCategories,
+      //         },
+      //       },
+      //     }
+      //   : {}),
     })
 
     visas = fetchedVisas.docs
@@ -59,7 +59,7 @@ export const ArchiveBlock: React.FC<
   }
 
   return (
-    <section className="container max-w-7xl -my-12 z-20 relative">
+    <section className="container max-w-7xl -my-12 z-[15] relative">
       <VisasShowcase docs={visas} categories={allCategories.docs} />
     </section>
   )

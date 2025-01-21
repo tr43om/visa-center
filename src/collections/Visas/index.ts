@@ -11,6 +11,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { metaFields } from '@/fields/meta'
+import { Visa } from '@/payload-types'
 
 export const Visas: CollectionConfig = {
   slug: 'visas',
@@ -70,53 +71,6 @@ export const Visas: CollectionConfig = {
     },
 
     {
-      name: 'types',
-      label: 'Типы виз',
-      type: 'array',
-      fields: [
-        {
-          name: 'type',
-          type: 'select',
-          label: 'Тип визы',
-          options: [
-            { label: 'Рабочая виза', value: 'employment' },
-            { label: 'Туристическая виза', value: 'tourism' },
-            { label: 'Бизнес виза', value: 'business' },
-          ],
-          required: true,
-        },
-        {
-          name: 'price',
-          label: 'Цена за оформление (₸)',
-          type: 'number',
-          required: true,
-        },
-        {
-          name: 'consular_fee',
-          label: 'Консульский сбор (€)',
-          defaultValue: 80,
-          type: 'number',
-        },
-        {
-          name: 'processing_time',
-          label: 'Срок оформления (в днях)',
-          type: 'number',
-          required: true,
-        },
-        {
-          name: 'rejection_chance',
-          label: 'Шанс отказа',
-          defaultValue: '<1%',
-          type: 'text',
-          required: true,
-        },
-      ],
-      minRows: 1,
-      maxRows: 10,
-    },
-    metaFields,
-
-    {
       name: 'category',
       label: 'Категория',
       required: true,
@@ -126,6 +80,7 @@ export const Visas: CollectionConfig = {
       },
       relationTo: 'categories',
     },
+    { name: 'isPopular', label: 'Популярное направление?', type: 'checkbox', defaultValue: false },
     {
       type: 'collapsible',
       label: 'Автозаполняемые поля',

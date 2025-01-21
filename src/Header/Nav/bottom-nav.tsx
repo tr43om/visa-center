@@ -20,7 +20,7 @@ export const BottomNav = async () => {
   const visas = await getVisas()
   const categories = await getCategories()
   return (
-    <div className="py-4 w-full  md:hidden bg-white/50 backdrop-blur-2xl z-50   fixed  container  bottom-0 left-0 flex gap-2   ">
+    <div className="py-4 w-full  md:hidden bg-white/50 backdrop-blur-2xl z-50   fixed  px-4  bottom-0 left-0 flex gap-2   ">
       <CallbackFormTrigger className=" w-full bg-zinc-800/80" />
       <Drawer>
         <DrawerTrigger asChild>

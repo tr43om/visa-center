@@ -124,8 +124,8 @@ export interface Page {
   layout: (ArchiveBlock | WhyUsBlock | PopularDestinationsBlock | ReviewsBlock)[];
   meta?: {
     title?: string | null;
-    image?: (number | null) | Media;
     description?: string | null;
+    image?: (number | null) | Media;
   };
   publishedAt?: string | null;
   slug?: string | null;
@@ -275,6 +275,11 @@ export interface ArchiveBlock {
 export interface Category {
   id: number;
   title: string;
+  consularFee: number;
+  serviceFee: number;
+  visaFee: number;
+  totalPrice: number;
+  processingTime: number;
   cover?: (number | null) | Media;
   parent?: (number | null) | Category;
   breadcrumbs?:
@@ -296,25 +301,18 @@ export interface Visa {
   id: number;
   cover?: (number | null) | Media;
   value: string;
-  types?:
-    | {
-        type: 'employment' | 'tourism' | 'business';
-        price: number;
-        consular_fee?: number | null;
-        processing_time: number;
-        rejection_chance: string;
-        id?: string | null;
-      }[]
-    | null;
-  title?: string | null;
-  image?: (number | null) | Media;
-  description?: string | null;
   category: number | Category;
+  isPopular?: boolean | null;
   href: string;
   label: string;
   imgUrl: string;
   slug?: string | null;
   slugLock?: boolean | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (number | null) | Media;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -425,6 +423,7 @@ export interface PopularDestinationsBlock {
     };
     [k: string]: unknown;
   } | null;
+  populateBy: 'all' | 'selection';
   destinations?:
     | {
         relationTo: 'visas';
@@ -526,6 +525,7 @@ export interface Submission {
   name: string;
   phone: string;
   text?: string | null;
+  visa?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -709,8 +709,8 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         title?: T;
-        image?: T;
         description?: T;
+        image?: T;
       };
   publishedAt?: T;
   slug?: T;
@@ -784,6 +784,7 @@ export interface WhyUsBlockSelect<T extends boolean = true> {
  */
 export interface PopularDestinationsBlockSelect<T extends boolean = true> {
   introContent?: T;
+  populateBy?: T;
   destinations?: T;
   id?: T;
   blockName?: T;
@@ -905,6 +906,11 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
+  consularFee?: T;
+  serviceFee?: T;
+  visaFee?: T;
+  totalPrice?: T;
+  processingTime?: T;
   cover?: T;
   parent?: T;
   breadcrumbs?:
@@ -941,25 +947,20 @@ export interface UsersSelect<T extends boolean = true> {
 export interface VisasSelect<T extends boolean = true> {
   cover?: T;
   value?: T;
-  types?:
-    | T
-    | {
-        type?: T;
-        price?: T;
-        consular_fee?: T;
-        processing_time?: T;
-        rejection_chance?: T;
-        id?: T;
-      };
-  title?: T;
-  image?: T;
-  description?: T;
   category?: T;
+  isPopular?: T;
   href?: T;
   label?: T;
   imgUrl?: T;
   slug?: T;
   slugLock?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -972,6 +973,7 @@ export interface SubmissionsSelect<T extends boolean = true> {
   name?: T;
   phone?: T;
   text?: T;
+  visa?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -5,6 +5,16 @@ import config from '@payload-config'
 export const getVisas = async () => {
   const payload = await getPayload({ config })
 
-  const visas = await payload.find({ collection: 'visas' })
+  const visas = await payload.find({ collection: 'visas', pagination: false })
+  return visas
+}
+
+export const getPopularDestinations = async () => {
+  const payload = await getPayload({ config })
+  const visas = await payload.find({
+    collection: 'visas',
+    where: { isPopular: { equals: true } },
+    pagination: false,
+  })
   return visas
 }

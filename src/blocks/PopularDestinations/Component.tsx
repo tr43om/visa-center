@@ -7,7 +7,9 @@ import {
   CarouselNavigation,
 } from '@/components/ui/carousel'
 import { Tilt } from '@/components/ui/tilt'
+import { getPopularDestinations } from '@/entities/visa/visa.queries'
 import type { PopularDestinationsBlock as PopularDestinationsProps, Visa } from '@/payload-types'
+import { getCountryDeclension } from '@/utilities/getCountryDeclension'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -15,22 +17,35 @@ export const PopularDestinations: React.FC<
   PopularDestinationsProps & {
     id?: string
   }
-> = (props) => {
+> = async (props) => {
   const { destinations, introContent } = props
-  const filteredSelectedVisas = (destinations || []).map((visa) => {
-    if (typeof visa.value === 'object') return visa.value
-  }) as Visa[]
+  const allPopularDestinations = await getPopularDestinations()
+  const filteredSelectedVisas =
+    props.populateBy === 'all'
+      ? allPopularDestinations.docs
+      : ((destinations || []).map((visa) => {
+          if (typeof visa.value === 'object') return visa.value
+        }) as Visa[])
 
   return (
     <section className="relative w-full ">
       <Carousel className="container max-w-7xl">
         <header className="flex justify-between justify-self-start items-center mb-4 w-full">
-          {introContent && (
+          {introContent ? (
             <RichText
               data={introContent}
               enableGutter={false}
               className="text-zinc-800 [&>p]:text-zinc-600 m-0  [&>h2]:m-0   [&>h2]:font-extrabold md:[&>h2]:text-3xl [&>h2]:text-xl space-y-2 md:[&>p]:text-xl"
             />
+          ) : (
+            <div className="grid">
+              <h2 className="font-extrabold text-xl md:text-3xl text-zinc-700">
+                Популярные направления
+              </h2>
+              <p className="md:text-xl text-zinc-600">
+                На основе собранной статистики по нашим клиентам
+              </p>
+            </div>
           )}
           <CarouselNavigation
             className=" gap-2 relative left-0 translate-y-0 w-fit hidden md:flex"
@@ -41,14 +56,14 @@ export const PopularDestinations: React.FC<
         <CarouselContent className=" gap-2 ">
           {filteredSelectedVisas.map((visa) => (
             <Tilt
-              className="w-full cursor-pointer active:cursor-grabbing"
+              className="w-full  cursor-pointer active:cursor-grabbing"
               key={visa.id}
               isRevese={true}
               rotationFactor={8}
             >
               <CarouselItem
                 key={visa.id}
-                className="flex basis-1/4 h-96 relative bg-slate-400 rounded-sm p-4 items-end border border-zinc-200 dark:border-zinc-800 pl-4"
+                className="flex w-[300px]  h-96 relative bg-slate-400 rounded-sm p-4 items-end border border-zinc-200 dark:border-zinc-800 pl-4"
               >
                 <Link href={visa.href} className="" draggable={false}>
                   <h3 className="text-white font-bold z-20 text-xl relative">{visa.label}</h3>

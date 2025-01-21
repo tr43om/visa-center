@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { cn } from 'src/utilities/cn'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
@@ -29,19 +29,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body>
-        <Providers>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
+        <Suspense>
+          <Providers>
+            <AdminBar
+              adminBarProps={{
+                preview: isEnabled,
+              }}
+            />
 
-          <Header />
-          {children}
-          <Footer />
-          <CallbackFormTrigger className=" fixed hidden md:flex bottom-6 right-6 z-50  " />
-          <BottomNav />
-        </Providers>
+            <Header />
+            {children}
+            <Footer />
+            <CallbackFormTrigger className=" fixed hidden md:flex bottom-6 right-6 z-50  " />
+            <BottomNav />
+          </Providers>
+        </Suspense>
       </body>
     </html>
   )

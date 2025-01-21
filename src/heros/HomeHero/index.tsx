@@ -84,7 +84,7 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, media }) => {
       <Image
         alt="Довольный клиент нашего визового центра уже готова к путешествию. Довольная держит в руке паспорт и билеты "
         src={hero_girl}
-        className="absolute z-20 bottom-8 -right-12 lg:-bottom-72 sm:-bottom-16  sm:w-[350px] lg:w-[600px]  opacity-80
+        className="absolute z-[15] bottom-8 -right-12 lg:-bottom-72 sm:-bottom-16  sm:w-[350px] lg:w-[600px]  opacity-80
           "
         width={250}
       />

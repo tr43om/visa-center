@@ -4,9 +4,7 @@ import RichText from '@/components/RichText'
 
 import type { Media as MediaType, WhyUsBlock as WhyUsBlockProps } from '@/payload-types'
 
-import { CMSLink } from '../../components/Link'
 import { Media } from '@/components/Media'
-import { Block } from 'payload'
 
 export const WhyUsBlock: React.FC<
   WhyUsBlockProps & {

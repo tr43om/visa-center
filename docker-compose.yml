@@ -6,8 +6,13 @@ services:
     image: postgres:latest
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - /d/backups:/backups # Здесь монтируется ваша папка с бекапами
     ports:
       - '5432:5432'
+    environment:
+      POSTGRES_DB: sunvisa
+      POSTGRES_USER: sunvisa
+      POSTGRES_PASSWORD: sunvisa
 
 volumes:
   pgdata:

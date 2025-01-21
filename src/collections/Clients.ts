@@ -32,5 +32,10 @@ export const Submissions: CollectionConfig = {
       label: 'Текст заявки',
       type: 'text',
     },
+    {
+      name: 'visa',
+      label: 'Направление',
+      type: 'text',
+    },
   ],
 }

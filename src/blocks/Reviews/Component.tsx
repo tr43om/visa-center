@@ -50,7 +50,7 @@ export const Reviews: React.FC<
               <CarouselItem
                 key={review.id}
                 className={cn(
-                  'flex w-[300px] cursor-default h-[480px] items-start  relative  rounded-md ',
+                  'flex w-[300px] cursor-default h-[480px] items-start  relative  rounded-md group',
                   review.platform === '2gis' &&
                     'p-4 items-end border border-zinc-200 dark:border-zinc-800 pl-4 pt-4 pb-[90px] bg-slate-200',
                   review.platform === 'instagram' &&

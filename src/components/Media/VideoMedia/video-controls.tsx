@@ -31,13 +31,8 @@ export const VideoControls = ({
   const dashArray = 2 * Math.PI * radius
   const dashOffset = dashArray * (1 - progress)
 
-  console.log({ dashArray, dashOffset, progress })
-
   return (
-    <div
-      className="top-1/2 absolute z-50 right-4 -translate-y-1/2 grid gap-2  justify-items-center"
-      onClick={() => console.log('first')}
-    >
+    <div className="top-1/2 absolute z-50 right-4 -translate-y-1/2 grid gap-2  justify-items-center">
       <div className="relative flex justify-center items-center">
         <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }}>
           <circle

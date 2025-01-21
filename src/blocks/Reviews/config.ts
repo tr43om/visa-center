@@ -10,6 +10,7 @@ import {
 export const Reviews: Block = {
   slug: 'reviews',
   interfaceName: 'ReviewsBlock',
+
   fields: [
     {
       name: 'introContent',

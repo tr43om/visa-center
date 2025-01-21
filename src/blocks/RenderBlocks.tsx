@@ -4,7 +4,6 @@ import React, { Fragment } from 'react'
 import type { Page } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
-import { FormBlock } from '@/blocks/Form/Component'
 import { WhyUsBlock } from './why-us/Component'
 import { PopularDestinations } from './PopularDestinations/Component'
 import { Reviews } from './Reviews/Component'
@@ -12,7 +11,6 @@ import { Reviews } from './Reviews/Component'
 const blockComponents = {
   archive: ArchiveBlock,
   reviews: Reviews,
-  formBlock: FormBlock,
   whyUs: WhyUsBlock,
   popularDestinations: PopularDestinations,
 }

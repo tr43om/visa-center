@@ -31,7 +31,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, categories }) 
     if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
-
+  console.log({ data })
   return (
     <header
       className="left-0 container z-20 -mt-[100px] translate-y-[124px]    max-w-7xl      "

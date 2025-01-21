@@ -4,35 +4,35 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
-import React, { cache } from 'react'
-import RichText from '@/components/RichText'
+import React, { cache, Suspense } from 'react'
 
 import type { Visa } from '@/payload-types'
 
-// import { VisaHero } from '@/heros/VisaHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { VisaHero } from '@/heros/VisaHero'
+import { VisaInfo } from '@/blocks/VisaInfo/Component'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
 
-// export async function generateStaticParams() {
-//   const payload = await getPayload({ config: configPromise })
-//   const visas = await payload.find({
-//     collection: 'visas',
-//     draft: false,
-//     limit: 1000,
-//     overrideAccess: false,
-//     pagination: false,
-//     select: {
-//       slug: true,
-//     },
-//   })
+export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise })
+  const visas = await payload.find({
+    collection: 'visas',
+    draft: false,
+    limit: 1000,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+    },
+  })
 
-//   const params = visas.docs.map(({ slug }) => {
-//     return { slug }
-//   })
+  const params = visas.docs.map(({ slug }) => {
+    return { slug }
+  })
 
-//   return params
-// }
+  return params
+}
 
 type Args = {
   params: Promise<{
@@ -43,20 +43,31 @@ type Args = {
 export default async function Visa({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = '' } = await paramsPromise
+  const payload = await getPayload({ config: configPromise })
+  const homeDocs = await payload.find({
+    collection: 'pages',
+    where: { slug: { contains: 'home' } },
+    limit: 1,
+  })
+  const layout = homeDocs.docs[0].layout.filter((l) => l.blockType !== 'archive')
   const url = '/visas/' + slug
   const visa = await queryVisaBySlug({ slug })
 
   if (!visa) return <PayloadRedirects url={url} />
 
   return (
-    <article>
-      {/* Allows redirects for valid pages too */}
-      <PayloadRedirects disableNotFound url={url} />
+    <Suspense>
+      <article>
+        {/* Allows redirects for valid pages too */}
+        <PayloadRedirects disableNotFound url={url} />
 
-      {draft && <LivePreviewListener />}
+        {draft && <LivePreviewListener />}
 
-      <VisaHero visa={visa} />
-    </article>
+        <VisaHero visa={visa} />
+        <VisaInfo visa={visa} />
+        <RenderBlocks blocks={layout} />
+      </article>
+    </Suspense>
   )
 }
 

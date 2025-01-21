@@ -15,22 +15,33 @@ import Image from 'next/image'
 import { RiStarFill } from '@remixicon/react'
 import Link from 'next/link'
 import { cn } from '@/utilities/cn'
+import { getCountryDeclension } from '@/utilities/getCountryDeclension'
 
 type VisaHeroProps = { visa: Visa }
 
 export const VisaHero = (data: VisaHeroProps) => {
   const visa = data.visa
   return (
-    <div className="overflow-hidden relative container max-w-7xl rounded-md mt-4">
+    <div className="overflow-hidden  relative container max-w-7xl rounded-md mt-4">
       <div className="   pt-[100px] pb-[40px] ">
         <div className="grid gap-8">
-          <div className="max-w-[40rem] space-y-2">
+          <div className="max-w-[40rem] space-y-2 pt-8">
             <h1 className="font-extrabold md:text-5xl text-4xl   text-white">
-              Оформление визы <br /> в {visa.label}
+              <span>Оформление визы</span> <br />
+              <span className="flex gap-2 items-center">
+                <Image
+                  src={visa.imgUrl.trimEnd()}
+                  alt={`Флаг страны: ${visa.label}`}
+                  width={38}
+                  height={28}
+                  className="mt-[6px] rounded-[3px]"
+                />
+                в {getCountryDeclension(visa.label, 'vi')}{' '}
+              </span>
             </h1>
             <p className="text-xl text-white/90">
               Оставьте заявку и получите варианты решения вашей задачи от визового специалиста{' '}
-              {visa.label}
+              {getCountryDeclension(visa.label, 'ro')}
             </p>
           </div>
 
@@ -78,25 +89,21 @@ export const VisaHero = (data: VisaHeroProps) => {
       <Image
         alt="Довольный клиент нашего визового центра уже готова к путешествию. Довольная держит в руке паспорт и билеты "
         src={hero_girl}
-        className="absolute z-20 bottom-8 -right-12 lg:-bottom-72 sm:-bottom-16  sm:w-[350px] lg:w-[600px]  before:content before:absolute
-            before:inset-0
-            before:bg-indigo-500
-            before:z-10
-            before:opacity-75"
+        className="absolute z-[15] bottom-8 -right-12 lg:-bottom-72 sm:-bottom-16  sm:w-[350px] lg:w-[600px] opacity-80"
         width={250}
       />
-      {visa.content.cover && (
+      {visa.cover && (
         <Media
-          imgClassName={cn("-z-10 object-cover  opacity-25  before:content-['']")}
+          imgClassName={cn("-z-10 object-cover  opacity-20  before:content-['']")}
           fill
           className="before:absolute
             before:inset-0
             before:block
-            before:bg-indigo-700
+            before:bg-indigo-800
             before:-z-10
-            before:opacity-65"
+            before:opacity-80"
           priority
-          resource={visa.content.cover}
+          resource={visa.cover}
         />
       )}
     </div>

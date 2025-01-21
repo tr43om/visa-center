@@ -1,7 +1,7 @@
 'use client'
 import * as React from 'react'
 import { SelectInput, useField, useForm, useFormFields } from '@payloadcms/ui'
-import countries from '@public/ISO3166_RU.json'
+import countries from '@public/merged_countries.json'
 import { Option } from '@payloadcms/ui/elements/ReactSelect'
 import { Visa } from '@/payload-types'
 import { CustomComponent, FieldClientComponent } from 'payload'
@@ -54,7 +54,7 @@ export const PayloadCountrySelect: React.FC<CustomSelectProps> = ({ path }) => {
 
   const handleOnChange = (e: CustomOption) => {
     setCountry(e.value)
-    setHref(`/visas/${toKebabCase(e.value)}`)
+    setHref(`/visas/${toKebabCase(e.value)}?label=${label}`)
     setLabel(e.label)
     if (e.imgUrl) {
       setImgUrl(e.imgUrl)

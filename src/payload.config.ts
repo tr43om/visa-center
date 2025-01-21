@@ -29,7 +29,7 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   email: nodemailerAdapter({
     defaultFromAddress: 'info@trazom.ru',
-    defaultFromName: 'Payload',
+    defaultFromName: 'SunVisa',
     // Nodemailer transportOptions
     transportOptions: {
       host: 'connect.smtp.bz',

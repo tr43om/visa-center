@@ -26,11 +26,29 @@ export const PopularDestinations: Block = {
       }),
       label: 'Intro Content',
     },
+    {
+      name: 'populateBy',
+      type: 'select',
+      defaultValue: 'all',
+      required: true,
+      options: [
+        {
+          label: 'Все популярные направления',
+          value: 'all',
+        },
+        {
+          label: 'Выборочно',
+          value: 'selection',
+        },
+      ],
+    },
 
     {
       name: 'destinations',
       type: 'relationship',
-
+      admin: {
+        condition: (_, siblingData) => siblingData.populateBy === 'selection',
+      },
       hasMany: true,
       label: 'Направления',
       relationTo: ['visas'],
