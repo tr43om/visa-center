@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
-import logo from '@media/logo.svg'
 import Image from 'next/image'
+import { getServerSideURL } from '@/utilities/getURL'
 
 interface Props {
   className?: string
@@ -17,13 +17,14 @@ export const Logo = (props: Props) => {
 
   return (
     <Image
-      alt="Payload Logo"
+      alt="SunVisa logo"
       height={40}
+      width={220}
       loading={loading}
       fetchPriority={priority}
       decoding="async"
       className={clsx(className)}
-      src={logo}
+      src={`${getServerSideURL()}/api/media/file/logo-1.svg`}
     />
   )
 }

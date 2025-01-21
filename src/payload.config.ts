@@ -80,8 +80,9 @@ export default buildConfig({
   editor: defaultLexical,
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI || '',
+      connectionString: process.env.DATABASE_URL || '',
     },
+    migrationDir: './migrations',
   }),
   collections: [Pages, Media, Categories, Users, Visas, Submissions, Reviews, Videos],
   cors: [getServerSideURL()].filter(Boolean),

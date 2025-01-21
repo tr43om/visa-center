@@ -26,6 +26,7 @@ export const Feature = ({
         alt={image.alt}
         className="absolute -top-2 -z-10 -right-10 group-hover:opacity-70 transition-all opacity-30 "
         height={150}
+        width={180}
       />
     </section>
   )
