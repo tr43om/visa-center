@@ -20,6 +20,7 @@ import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { Submissions } from './collections/Clients'
 import { Reviews } from './collections/Reviews'
 import { Videos } from './collections/Videos'
+import { down, up } from './migrations/20250121_170339_initial'
 
 import { uploadthingStorage } from '@payloadcms/storage-uploadthing'
 
@@ -79,11 +80,12 @@ export default buildConfig({
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
   db: postgresAdapter({
+    // prodMigrations: [{ down, up, name: 'initial' }],
     pool: {
       connectionString: process.env.DATABASE_URL || '',
     },
-    migrationDir: './migrations',
   }),
+
   collections: [Pages, Media, Categories, Users, Visas, Submissions, Reviews, Videos],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],

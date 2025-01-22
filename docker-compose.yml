@@ -1,25 +1,11 @@
 version: '3'
 
 services:
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - '3000:3000'
-    depends_on:
-      db:
-        condition: service_healthy
-    networks:
-      - my_network
-    env_file:
-      - .env
-
   db:
+    restart: always
     image: postgres:latest
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
     ports:
       - '5432:5432'
     networks:
@@ -29,23 +15,44 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    environment:
+      - POSTGRES_USER=sunvisa
+      - POSTGRES_PASSWORD=sunvisa
+      - POSTGRES_DB=sunvisa
+      - NODE_ENV=production
+    env_file:
+      - .env
 
-  cron:
-    image: alpine/curl
-    command: >
-      sh -c "
-        echo '*/10 * * * * curl -X POST http://sunvisa-front:3000/db/clear' > /etc/crontabs/root && \
-        crond -f -l 2
-      "
+  web:
+    restart: always
+    build: .
+    ports:
+      - '3000:3000'
     depends_on:
-      - web
+      db:
+        condition: service_healthy
     networks:
       - my_network
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://sunvisa:sunvisa@db:5432/sunvisa
+
+  # cron:
+  #   image: alpine/curl
+  #   command: >
+  #     sh -c "
+  #       echo '*/10 * * * * curl -X POST http://sunvisa-front:3000/db/clear' > /etc/crontabs/root && \
+  #       crond -f -l 2
+  #     "
+  #   depends_on:
+  #     - web
+  #   networks:
+  #     - my_network
 
 volumes:
   postgres_data:
 
 networks:
   my_network:
-    name: my_network
     driver: bridge

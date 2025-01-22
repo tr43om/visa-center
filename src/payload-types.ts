@@ -114,6 +114,9 @@ export interface Page {
             } | null;
             url?: string | null;
             label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
             appearance?: ('default' | 'outline') | null;
           };
           id?: string | null;
@@ -125,6 +128,9 @@ export interface Page {
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (number | null) | Media;
   };
   publishedAt?: string | null;
@@ -311,6 +317,9 @@ export interface Visa {
   meta?: {
     title?: string | null;
     description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
     image?: (number | null) | Media;
   };
   updatedAt: string;
@@ -365,6 +374,9 @@ export interface WhyUsBlock {
       } | null;
       url?: string | null;
       label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
       appearance?: ('default' | 'outline') | null;
     };
   };
@@ -396,6 +408,9 @@ export interface WhyUsBlock {
       } | null;
       url?: string | null;
       label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
       appearance?: ('default' | 'outline') | null;
     };
   };
@@ -535,6 +550,9 @@ export interface Submission {
  */
 export interface Redirect {
   id: number;
+  /**
+   * You will need to rebuild the website when changing this field.
+   */
   from: string;
   to?: {
     type?: ('reference' | 'custom') | null;
@@ -553,6 +571,8 @@ export interface Redirect {
   createdAt: string;
 }
 /**
+ * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "search".
  */
