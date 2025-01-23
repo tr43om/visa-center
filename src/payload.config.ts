@@ -93,7 +93,7 @@ export default buildConfig({
     ...plugins,
     // storage-adapter-placeholder
     uploadthingStorage({
-      enabled: false,
+      enabled: process.env.NODE_ENV === 'production',
       collections: {
         media: true,
         videos: true,
