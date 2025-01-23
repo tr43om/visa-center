@@ -89,6 +89,11 @@ export default buildConfig({
   collections: [Pages, Media, Categories, Users, Visas, Submissions, Reviews, Videos],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
+  upload: {
+    limits: {
+      fileSize: 10000000, // 10MB, written in bytes
+    },
+  },
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
