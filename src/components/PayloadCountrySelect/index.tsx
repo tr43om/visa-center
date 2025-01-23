@@ -54,7 +54,7 @@ export const PayloadCountrySelect: React.FC<CustomSelectProps> = ({ path }) => {
 
   const handleOnChange = (e: CustomOption) => {
     setCountry(e.value)
-    setHref(`/visas/${toKebabCase(e.value)}?label=${label}`)
+    setHref(`/visas/${toKebabCase(e.value)}?label=${e.label}`)
     setLabel(e.label)
     if (e.imgUrl) {
       setImgUrl(e.imgUrl)

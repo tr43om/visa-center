@@ -29,15 +29,15 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   email: nodemailerAdapter({
-    defaultFromAddress: 'info@trazom.ru',
+    defaultFromAddress: process.env.FROM || '',
     defaultFromName: 'SunVisa',
     // Nodemailer transportOptions
     transportOptions: {
-      host: 'connect.smtp.bz',
+      host: process.env.SMTP_HOST,
       port: 587,
       auth: {
-        user: 'trazooom@gmail.com',
-        pass: 'k8U8sZrbFTD0',
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     },
   }),
@@ -93,6 +93,7 @@ export default buildConfig({
     ...plugins,
     // storage-adapter-placeholder
     uploadthingStorage({
+      enabled: false,
       collections: {
         media: true,
         videos: true,

@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from 'src/utilities/cn'
-import React, { Ref, useEffect, useRef, useState } from 'react'
+import React, { Ref, useCallback, useEffect, useRef, useState } from 'react'
 import type { Props as MediaProps } from '../types'
 
 import { getClientSideURL } from '@/utilities/getURL'
@@ -14,16 +14,61 @@ import {
 } from '@remixicon/react'
 import Player from 'next-video/player'
 import { VideoControls } from './video-controls'
+import { useIsVisible } from '@/hooks/use-is-visible'
 
 export const VideoMedia: React.FC<MediaProps> = (props) => {
   const { onClick, resource, videoClassName } = props
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const [isMuted, setIsMuted] = useState(true)
-  const [isPaused, setIsPaused] = useState(false)
-  const [showFallback, setShowLoading] = useState<boolean>()
+  const [isPaused, setIsPaused] = useState(true)
+  const [showFallback, setShowLoading] = useState<boolean>(true)
   const [videoDuration, setVideoDuration] = useState<number>()
   const [videoProgress, setVideoProgress] = useState<number>(0)
+  const { isVisible, targetRef } = useIsVisible(
+    {
+      root: null,
+      rootMargin: '100px',
+      threshold: 0.1,
+    },
+    false,
+  )
+
+  const startVideoOnMouseMove = useCallback(async () => {
+    try {
+      const video = videoRef.current
+      if (video) {
+        await video.play()
+        setVideoDuration(video.duration)
+        setShowLoading(false)
+        setIsPaused(false)
+      }
+    } catch (e) {
+      // do nothing
+    }
+  }, [])
+
+  const stopVideoOnMouseMove = useCallback(() => {
+    try {
+      const video = videoRef.current
+      if (video) {
+        video.pause()
+        setIsPaused(true)
+      }
+    } catch (e) {
+      // do nothing
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isVisible) {
+      startVideoOnMouseMove()
+      console.log('visible')
+    } else {
+      stopVideoOnMouseMove()
+      console.log('not visible')
+    }
+  }, [isVisible, startVideoOnMouseMove, stopVideoOnMouseMove, showFallback])
 
   useEffect(() => {
     if (isPaused) return
@@ -43,11 +88,11 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
     }
   }, [videoProgress, videoDuration, isPaused])
 
-  const onPlayPause = () => {
+  const onPlayPause = async () => {
     const video = videoRef.current
     if (video) {
       setIsPaused(!video.paused)
-      if (video.paused) video.play()
+      if (video.paused) await video.play()
       else video.pause()
     }
   }
@@ -64,7 +109,8 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
     const { filename } = resource
 
     return (
-      <div className="relative cursor-pointer h-full">
+      <div className="relative cursor-pointer h-full" ref={targetRef as any}>
+        {showFallback && <div>loading video</div>}
         <VideoControls
           isMuted={isMuted}
           isPaused={isPaused}
@@ -73,7 +119,7 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
           progress={videoProgress}
         />
         <Player
-          autoPlay
+          autoPlay={false}
           playsInline
           controls={false}
           loop
@@ -83,7 +129,10 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
           ref={videoRef}
           className={cn(videoClassName)}
           src={`${getClientSideURL()}/api/videos/file/${filename}`}
-          onCanPlay={(e) => setVideoDuration(e.currentTarget.duration)}
+          onCanPlay={(e) => {
+            setVideoDuration(e.currentTarget.duration)
+            setShowLoading(false)
+          }}
         >
           loading
         </Player>
