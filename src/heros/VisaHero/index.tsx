@@ -97,6 +97,8 @@ export const VisaHero = (data: VisaHeroProps) => {
         src={`${getServerSideURL()}/api/media/file/hero-girl.webp`}
         className="absolute z-[15] bottom-8 -right-12 lg:-bottom-72 sm:-bottom-16  sm:w-[350px] lg:w-[600px] opacity-80"
         width={250}
+        quality={100}
+        priority={true}
         height={800}
       />
       {visa.cover && (

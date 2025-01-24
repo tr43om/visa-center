@@ -21,10 +21,11 @@ export const Logo = (props: Props) => {
       height={40}
       width={220}
       loading={loading}
-      fetchPriority={priority}
+      fetchPriority={'high'}
+      quality={100}
       decoding="async"
       className={clsx(className)}
-      src={`${getServerSideURL()}/api/media/file/logo-1.svg`}
+      src={`${getServerSideURL()}/api/media/file/logo.svg`}
     />
   )
 }

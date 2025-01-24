@@ -15,6 +15,7 @@ import {
 import Player from 'next-video/player'
 import { VideoControls } from './video-controls'
 import { useIsVisible } from '@/hooks/use-is-visible'
+import { TextShimmerWave } from '@/components/ui/text-shimmer-wave'
 
 export const VideoMedia: React.FC<MediaProps> = (props) => {
   const { onClick, resource, videoClassName } = props
@@ -109,15 +110,23 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
     const { filename } = resource
 
     return (
-      <div className="relative cursor-pointer h-full" ref={targetRef as any}>
-        {showFallback && <div>loading video</div>}
-        <VideoControls
-          isMuted={isMuted}
-          isPaused={isPaused}
-          onMute={onMute}
-          onPlayPause={onPlayPause}
-          progress={videoProgress}
-        />
+      <div className="relative cursor-pointer h-full bg-zinc-950 " ref={targetRef as any}>
+        {showFallback && (
+          <div className="absolute inset-0 z-50  justify-center w-full h-full flex mx-0 m-auto place-items-center">
+            <TextShimmerWave className="[--base-color:#dbdbdb] [--base-gradient-color:#ffffff]">
+              Загружаем видео...
+            </TextShimmerWave>
+          </div>
+        )}
+        {!showFallback && (
+          <VideoControls
+            isMuted={isMuted}
+            isPaused={isPaused}
+            onMute={onMute}
+            onPlayPause={onPlayPause}
+            progress={videoProgress}
+          />
+        )}
         <Player
           autoPlay={false}
           playsInline
@@ -133,9 +142,7 @@ export const VideoMedia: React.FC<MediaProps> = (props) => {
             setVideoDuration(e.currentTarget.duration)
             setShowLoading(false)
           }}
-        >
-          loading
-        </Player>
+        />
       </div>
     )
   }

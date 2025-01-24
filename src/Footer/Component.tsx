@@ -45,11 +45,11 @@ export async function Footer() {
                 <p className="text-white/80 text-sm whitespace-nowrap">или по номеру телефона</p>
                 <div className="w-full border-t border-white/50" />
               </div>
-              <a href={`tel:+77028438123`} className="text-white block font-semibold">
-                +7 702 843 8123
-              </a>
               <a href={`tel:+77768787306`} className="text-white block font-semibold">
                 +7 776 878 7306
+              </a>
+              <a href={`tel:+77028438123`} className="text-white block font-semibold">
+                +7 702 843 8123
               </a>
             </div>
           </div>

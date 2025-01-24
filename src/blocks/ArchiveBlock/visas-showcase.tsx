@@ -34,7 +34,7 @@ export const VisasShowcase = ({ docs, categories }: VisasShowcaseProps) => {
       </CardHeader>
       <CardContent className="p-0 pb-4">
         <Tabs value={tab} onValueChange={setTab}>
-          <TabsList className="px-4 mb-4">
+          <TabsList className="px-4 mb-4 overflow-y-auto">
             {sortedCategories.map((category) => (
               <TabsTrigger
                 key={category.id}
