@@ -47,8 +47,8 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, media }) => {
                 text={
                   <Image
                     src={`${getServerSideURL()}/api/media/file/2GIS-full.svg`}
-                    height={28}
-                    width={28}
+                    height={38}
+                    width={140}
                     alt="Логотип 2гис"
                   />
                 }
@@ -81,7 +81,7 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, media }) => {
                 alt: 'Преимущество нашего визового центра: низкий шанс отказа',
                 width: 180,
               }}
-              text=">99%"
+              text=">97%"
               title="Одобрения"
             />
           </div>

@@ -97,17 +97,17 @@ export default buildConfig({
   plugins: [
     ...plugins,
     // storage-adapter-placeholder
-    uploadthingStorage({
-      enabled: process.env.NODE_ENV === 'production',
-      collections: {
-        media: true,
-        videos: true,
-      },
-      options: {
-        token: process.env.UPLOADTHING_TOKEN,
-        acl: 'public-read',
-      },
-    }),
+    // uploadthingStorage({
+    //   enabled: process.env.NODE_ENV === 'production',
+    //   collections: {
+    //     media: true,
+    //     videos: true,
+    //   },
+    //   options: {
+    //     token: process.env.UPLOADTHING_TOKEN,
+    //     acl: 'public-read',
+    //   },
+    // }),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
