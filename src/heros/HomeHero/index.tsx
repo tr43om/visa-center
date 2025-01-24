@@ -95,7 +95,7 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, media }) => {
         quality={100}
         priority={true}
         height={800}
-        width={250}
+        width={600}
       />
       {media && typeof media === 'object' && (
         <Media

@@ -45,13 +45,13 @@ export const VisaHero = (data: VisaHeroProps) => {
             <Link href="https://2gis.kz/almaty/firm/70000001069038260/tab/reviews" target="_blank">
               <Feature
                 image={{
-                  src: `${getServerSideURL()}/api/media/file/reviews.webp`,
+                  src: `${getServerSideURL()}/api/media/file/feature1.webp`,
                   alt: 'Преимущество нашего визового центра: высокая оценка',
                   width: 180,
                 }}
                 text={
                   <Image
-                    src={`${getServerSideURL()}/api/media/file/2GIS-1.svg`}
+                    src={`${getServerSideURL()}/api/media/file/2GIS-full.svg`}
                     height={28}
                     width={28}
                     alt="Логотип 2гис"
@@ -73,7 +73,7 @@ export const VisaHero = (data: VisaHeroProps) => {
             </Link>
             <Feature
               image={{
-                src: `${getServerSideURL()}/api/media/file/suitcase-1.webp`,
+                src: `${getServerSideURL()}/api/media/file/feature2.webp`,
                 alt: 'Преимущество нашего визового центра: опыт сотрудников',
                 width: 180,
               }}
@@ -82,11 +82,11 @@ export const VisaHero = (data: VisaHeroProps) => {
             />
             <Feature
               image={{
-                src: `${getServerSideURL()}/api/media/file/exp.webp`,
+                src: `${getServerSideURL()}/api/media/file/feature3.webp`,
                 alt: 'Преимущество нашего визового центра: низкий шанс отказа',
                 width: 180,
               }}
-              text=">99%"
+              text=">97%"
               title="Одобрения"
             />
           </div>
@@ -96,7 +96,7 @@ export const VisaHero = (data: VisaHeroProps) => {
         alt="Довольный клиент нашего визового центра уже готова к путешествию. Довольная держит в руке паспорт и билеты "
         src={`${getServerSideURL()}/api/media/file/hero-girl.webp`}
         className="absolute z-[15] bottom-8 -right-12 lg:-bottom-72 sm:-bottom-16  sm:w-[350px] lg:w-[600px] opacity-80"
-        width={250}
+        width={600}
         quality={100}
         priority={true}
         height={800}
