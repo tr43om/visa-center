@@ -20,7 +20,7 @@ export const VisaHero = (data: VisaHeroProps) => {
   return (
     <div className="overflow-hidden  relative container max-w-7xl rounded-md mt-4">
       <div className="   pt-[100px] pb-[40px] ">
-        <div className="grid gap-8">
+        <div className="grid gap-8 mt-2 md:mt-6">
           <div className="max-w-[40rem] space-y-2 pt-8">
             <h1 className="font-extrabold md:text-5xl text-4xl   text-white">
               <span>Оформление визы</span> <br />
@@ -95,11 +95,12 @@ export const VisaHero = (data: VisaHeroProps) => {
       <Image
         alt="Довольный клиент нашего визового центра уже готова к путешествию. Довольная держит в руке паспорт и билеты "
         src={`${getServerSideURL()}/api/media/file/hero-girl.webp`}
-        className="absolute z-[15] bottom-8 -right-12 lg:-bottom-72 sm:-bottom-16  sm:w-[350px] lg:w-[600px] opacity-80"
-        width={600}
+        className="absolute z-[15] bottom-0 -right-12 lg:-bottom-72 sm:-bottom-16 w-[285px]  sm:w-[350px] lg:w-[600px]  opacity-80
+                "
         quality={100}
         priority={true}
         height={800}
+        width={600}
       />
       {visa.cover && (
         <Media

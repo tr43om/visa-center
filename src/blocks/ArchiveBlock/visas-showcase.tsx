@@ -23,10 +23,11 @@ export const VisasShowcase = ({ docs, categories }: VisasShowcaseProps) => {
   const [tab, setTab] = useState<string>(sortedCategories[0].title)
 
   return (
-    <Card className="bg-white">
+    <Card className="bg-white p-0">
       <CardHeader>
         <CardTitle className='text-zinc-800 font-extrabold md:text-3xl text-xl space-y-2 "'>
-          Оформляем визы в более чем {docs.length} стран мира
+          Оформляем визы в более чем{' '}
+          <span className="text-indigo-500">{docs.length} стран мира</span>
         </CardTitle>
         <CardDescription className="text-zinc-600 md:text-xl">
           Просто выберите нужную страну из списка, чтобы подробно ознакомиться с информацией
@@ -34,7 +35,7 @@ export const VisasShowcase = ({ docs, categories }: VisasShowcaseProps) => {
       </CardHeader>
       <CardContent className="p-0 pb-4">
         <Tabs value={tab} onValueChange={setTab}>
-          <TabsList className="px-4 mb-4 overflow-y-auto">
+          <TabsList className="px-4 mb-4 overflow-x-auto overflow-y-hidden">
             {sortedCategories.map((category) => (
               <TabsTrigger
                 key={category.id}
