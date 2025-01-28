@@ -17,6 +17,7 @@ import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 import { CallbackFormTrigger } from '@/entities/submission/ui/callback-form-trigger'
 import { BottomNav } from '@/Header/Nav/bottom-nav'
+import { Metrika } from '@/third-parties/metrika'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
@@ -42,6 +43,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <Footer />
             <CallbackFormTrigger className=" fixed hidden md:flex bottom-6 right-6 z-50  " />
             <BottomNav />
+            <Metrika />
           </Providers>
         </Suspense>
       </body>
