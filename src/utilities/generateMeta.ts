@@ -5,6 +5,10 @@ import type { Media, Page, Visa, Config } from '../payload-types'
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getServerSideURL } from './getURL'
 
+function isVisa(obj: any): obj is Visa {
+  return obj
+}
+
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const serverUrl = getServerSideURL()
 
@@ -30,6 +34,21 @@ export const generateMeta = async (args: {
 
   return {
     description: doc?.meta?.description,
+    keywords: [
+      isVisa(doc) ? doc.label : 'визы',
+      'Визовая поддержка',
+      'Помощь с визой',
+      'Шенген Алматы',
+      'Оформление визы',
+      'Консультация по визам',
+      'Получение визы',
+      'Туристическая виза',
+      'Рабочая виза',
+      'Бизнес виза',
+      'Шенгенская виза',
+      'Sunvisa',
+      'Студенческая виза',
+    ],
     openGraph: mergeOpenGraph({
       description: doc?.meta?.description || '',
       images: ogImage

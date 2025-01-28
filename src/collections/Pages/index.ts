@@ -21,6 +21,7 @@ import { WhyUs } from '@/blocks/why-us/config'
 import { anyone } from '@/access/anyone'
 import { PopularDestinations } from '@/blocks/PopularDestinations/config'
 import { Reviews } from '@/blocks/Reviews/config'
+import { Content } from '@/blocks/Content/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -76,7 +77,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [Archive, WhyUs, PopularDestinations, Reviews],
+              blocks: [Archive, WhyUs, PopularDestinations, Reviews, Content],
               required: true,
               admin: {
                 initCollapsed: true,
@@ -84,33 +85,6 @@ export const Pages: CollectionConfig<'pages'> = {
             },
           ],
           label: 'Content',
-        },
-        {
-          name: 'meta',
-          label: 'SEO',
-          fields: [
-            OverviewField({
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
-            }),
-            MetaTitleField({
-              hasGenerateFn: true,
-            }),
-            MetaImageField({
-              relationTo: 'media',
-            }),
-
-            MetaDescriptionField({}),
-            PreviewField({
-              // if the `generateUrl` function is configured
-              hasGenerateFn: true,
-
-              // field paths to match the target field for data
-              titlePath: 'meta.title',
-              descriptionPath: 'meta.description',
-            }),
-          ],
         },
       ],
     },

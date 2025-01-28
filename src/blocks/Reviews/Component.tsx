@@ -43,22 +43,26 @@ export const Reviews: React.FC<
             alwaysShow
           />
         </header>
-        <CarouselContent className=" gap-2 ">
+        <CarouselContent className="  -ml-2">
           {filteredSelectedReviews.map((review) => {
             const visa = review.visa as unknown as Visa
             return (
               <CarouselItem
                 key={review.id}
-                className={cn(
-                  'flex w-[300px] cursor-default h-[480px] items-start  relative  rounded-md group',
-                  review.platform === '2gis' &&
-                    'p-4 items-end border border-zinc-200 dark:border-zinc-800 pl-4 pt-4 pb-[90px] bg-slate-200',
-                  review.platform === 'instagram' &&
-                    'before:content before:inset-0 before:absolute before:opacity-40 before:bg-slate-600 before:z-10 ',
-                )}
+                className={cn('flex basis-1/2 sm:basis-1/3 md:basis-1/4 cursor-default pl-2 ')}
               >
-                {review.platform === 'instagram' && <VideoReview review={review} visa={visa} />}
-                {review.platform === '2gis' && <TextReview review={review} visa={visa} />}
+                <div
+                  className={cn(
+                    'h-[480px] items-start overflow-hidden flex  relative  rounded-md group',
+                    review.platform === '2gis' &&
+                      'p-4 items-end border border-zinc-200 dark:border-zinc-800 pl-4 pt-4 pb-[90px] bg-slate-200',
+                    review.platform === 'instagram' &&
+                      'before:content before:inset-0 before:absolute before:opacity-40 before:bg-slate-600 before:z-10 ',
+                  )}
+                >
+                  {review.platform === 'instagram' && <VideoReview review={review} visa={visa} />}
+                  {review.platform === '2gis' && <TextReview review={review} visa={visa} />}
+                </div>
               </CarouselItem>
             )
           })}

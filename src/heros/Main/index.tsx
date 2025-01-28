@@ -1,40 +1,26 @@
 import React from 'react'
 
-import type { Page } from '@/payload-types'
+import type { Media as MediaType, Page, Visa } from '@/payload-types'
 
-import RichText from '@/components/RichText'
-import { Feature } from './components/feature'
-
-import { Media } from '@/components/Media'
 import Image from 'next/image'
 import { RiStarFill } from '@remixicon/react'
 import Link from 'next/link'
+import { cn } from '@/utilities/cn'
 import { getServerSideURL } from '@/utilities/getURL'
+import { VisaIntro } from './visa-intro'
+import { HomeIntro } from './home-intro'
+import { Media } from '@/components/Media'
+import { Feature } from './components/feature'
 
-type HomeHeroType =
-  | {
-      children?: React.ReactNode
-      richText?: never
-    }
-  | (Omit<Page['hero'], 'richText'> & {
-      children?: never
-      richText?: Page['hero']['richText']
-    })
+type MainHeroProps = { visa?: Visa; media?: Page['hero']['media'] }
 
-export const HomeHero: React.FC<Page['hero']> = ({ richText, media }) => {
+export const MainHero = ({ media, visa }: MainHeroProps) => {
+  const resource = visa ? visa.cover : media
   return (
-    <div className="overflow-hidden relative container max-w-7xl rounded-md mt-4">
-      <div className="   pt-[140px] md:pt-[100px] pb-[40px] ">
+    <div className="overflow-hidden  relative container max-w-7xl rounded-md mt-4 ">
+      <div className="   pt-[100px] pb-[40px] ">
         <div className="grid gap-8 mt-2 md:mt-6">
-          <div className="max-w-[40rem]">
-            {richText && (
-              <RichText
-                data={richText}
-                enableGutter={false}
-                className="text-white m-0 max-w-96 md:max-w-md [&>h1]:font-extrabold md:[&>h1]:text-5xl [&>h1]:text-4xl space-y-2 md:[&>p]:text-xl"
-              />
-            )}
-          </div>
+          {visa ? <VisaIntro visa={visa} /> : <HomeIntro />}
 
           <div className="grid gap-2 md:flex max-w-56 sm:max-w-80 md:max-w-none">
             <Link href="https://2gis.kz/almaty/firm/70000001069038260/tab/reviews" target="_blank">
@@ -87,30 +73,30 @@ export const HomeHero: React.FC<Page['hero']> = ({ richText, media }) => {
           </div>
         </div>
       </div>
-      <Image
-        alt="Довольный клиент нашего визового центра уже готова к путешествию. Довольная держит в руке паспорт и билеты "
-        src={`${getServerSideURL()}/api/media/file/hero-girl.webp`}
-        className="absolute z-[15] bottom-0 -right-12 lg:-bottom-72 sm:-bottom-16 w-[285px]  sm:w-[350px] lg:w-[600px]  opacity-80
-          "
-        quality={100}
-        priority={true}
-        height={800}
-        width={600}
-      />
-      {media && typeof media === 'object' && (
+      <div className="absolute z-[15] bottom-0 -right-12 lg:-bottom-72 sm:-bottom-16 ">
+        <Image
+          alt="Довольный клиент нашего визового центра уже готова к путешествию. Довольная держит в руке паспорт и билеты "
+          src={`${getServerSideURL()}/api/media/file/hero-girl.webp`}
+          className=" w-[285px]  sm:w-[350px] lg:w-[600px]  bg-blend-lighten
+                "
+          quality={100}
+          priority={true}
+          height={800}
+          width={600}
+        />
+      </div>
+      {resource && (
         <Media
+          imgClassName={cn("-z-10 object-cover  opacity-20  before:content-['']")}
           fill
-          imgClassName="-z-10 object-cover opacity-15  before:content-['']
-            
-           "
           className="before:absolute
             before:inset-0
             before:block
-            before:bg-indigo-700
+            before:bg-indigo-600
             before:-z-10
-            before:opacity-85"
+            before:opacity-80"
           priority
-          resource={media}
+          resource={resource}
         />
       )}
     </div>

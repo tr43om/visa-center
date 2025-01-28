@@ -16,13 +16,15 @@ export const hero: Field = {
     {
       name: 'type',
       type: 'select',
-      defaultValue: 'homeHero',
+      defaultValue: 'mainHero',
       label: 'Type',
       options: [
         {
           label: 'None',
           value: 'none',
         },
+        { label: 'lowImpact', value: 'lowImpact' },
+        { label: 'mainHero', value: 'mainHero' },
 
         {
           label: 'Visa Hero',
@@ -59,7 +61,6 @@ export const hero: Field = {
       name: 'media',
       type: 'upload',
       relationTo: 'media',
-      required: true,
     },
   ],
   label: false,

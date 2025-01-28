@@ -87,7 +87,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'visa' | 'homeHero';
+    type: 'none' | 'lowImpact' | 'mainHero' | 'visa' | 'homeHero';
     richText?: {
       root: {
         type: string;
@@ -122,9 +122,12 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    media: number | Media;
+    media?: (number | null) | Media;
   };
-  layout: (ArchiveBlock | WhyUsBlock | PopularDestinationsBlock | ReviewsBlock)[];
+  layout: (ArchiveBlock | WhyUsBlock | PopularDestinationsBlock | ReviewsBlock | ContentBlock)[];
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -133,9 +136,6 @@ export interface Page {
      */
     image?: (number | null) | Media;
   };
-  publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -506,6 +506,51 @@ export interface Video {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock".
+ */
+export interface ContentBlock {
+  columns?:
+    | {
+        size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
+        richText?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        enableLink?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?: {
+            relationTo: 'pages';
+            value: number | Page;
+          } | null;
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'content';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -715,7 +760,11 @@ export interface PagesSelect<T extends boolean = true> {
         whyUs?: T | WhyUsBlockSelect<T>;
         popularDestinations?: T | PopularDestinationsBlockSelect<T>;
         reviews?: T | ReviewsBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
       };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
   meta?:
     | T
     | {
@@ -723,9 +772,6 @@ export interface PagesSelect<T extends boolean = true> {
         description?: T;
         image?: T;
       };
-  publishedAt?: T;
-  slug?: T;
-  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -807,6 +853,32 @@ export interface PopularDestinationsBlockSelect<T extends boolean = true> {
 export interface ReviewsBlockSelect<T extends boolean = true> {
   introContent?: T;
   reviews?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContentBlock_select".
+ */
+export interface ContentBlockSelect<T extends boolean = true> {
+  columns?:
+    | T
+    | {
+        size?: T;
+        richText?: T;
+        enableLink?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

@@ -10,6 +10,10 @@ export const getServerSideURL = () => {
   return url
 }
 
+export const getMediaUrl = (filename: string) => {
+  return `${getClientSideURL()}/api/media/file/${filename}`
+}
+
 export const getClientSideURL = () => {
   if (canUseDOM) {
     const protocol = window.location.protocol

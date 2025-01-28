@@ -15,7 +15,7 @@ import { RiInstagramFill, RiWhatsappFill } from '@remixicon/react'
 export async function Footer() {
   const payloadVisas = await getVisas()
   const payloadCategories = await getCategories()
-  const categories = payloadCategories.docs
+  const categories = payloadCategories.docs.reverse()
   const visas = payloadVisas.docs
 
   return (
@@ -24,7 +24,7 @@ export async function Footer() {
         <div className=" gap-12 flex flex-col md:flex-row ">
           <div className="space-y-6">
             <Link className="flex items-center w-full" href="/">
-              <Logo className="md:w-full" />
+              <Logo className="w-[300px] md:w-[480px]" />
             </Link>
             <div className="space-y-2">
               <div className="space-y-1">
@@ -55,28 +55,30 @@ export async function Footer() {
           </div>
 
           <div className="flex flex-col items-start md:flex-row gap-4 ">
-            <nav className="grid grid-cols-3 md:flex-row gap-4 max-h-[750px]">
-              {categories.reverse().map((category) => {
+            <nav className="flex flex-col md:flex-row gap-4 ">
+              {categories.map((category) => {
                 const filteredVisas =
                   visas.filter((visa) => (visa.category as Category).id === category.id) || []
                 return (
-                  <ul key={category.id} className="space-y-2">
+                  <div key={category.id}>
                     <h3 className="text-sm text-white font-extrabold uppercase mb-4">
                       {category.title}
                     </h3>
-                    {filteredVisas.map((visa) => (
-                      <li key={visa.id} className="text-white">
-                        <Link href={visa.href}>{visa.label}</Link>
-                      </li>
-                    ))}
-                  </ul>
+                    <ul className="flex gap-2 max-h-48 items-center flex-wrap">
+                      {filteredVisas.map((visa) => (
+                        <li key={visa.id} className="text-white bg-white/10 px-2 py-1">
+                          <Link href={visa.href}>{visa.label}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 )
               })}
             </nav>
           </div>
         </div>
         <div className=" grid md:flex items-center gap-4 md:justify-between">
-          <Link href="#" className="underline">
+          <Link href="/privacy" className="underline">
             Политика конфиденциальности
           </Link>
           <Button

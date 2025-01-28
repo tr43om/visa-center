@@ -88,7 +88,7 @@ export const VisasShowcase = ({ docs, categories }: VisasShowcaseProps) => {
                         alt={`Флаг ${visa.label}`}
                         width={60}
                         height={50}
-                        className="absolute -right-2 -bottom-2 rounded-sm"
+                        className="absolute right-2 top-0 bottom-0 w-16 h-10 rounded-sm object-cover self-center"
                       />
                     </Link>
                   ))}

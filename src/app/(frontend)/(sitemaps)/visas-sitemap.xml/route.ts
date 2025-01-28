@@ -9,7 +9,7 @@ const getVisasSitemap = unstable_cache(
     const SITE_URL =
       process.env.NEXT_PUBLIC_SERVER_URL ||
       process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-      'https://example.com'
+      'https://sunvisa.kz'
 
     const results = await payload.find({
       collection: 'visas',
@@ -33,10 +33,10 @@ const getVisasSitemap = unstable_cache(
 
     const sitemap = results.docs
       ? results.docs
-          .filter((post) => Boolean(post?.slug))
-          .map((post) => ({
-            loc: `${SITE_URL}/visas/${post?.slug}`,
-            lastmod: post.updatedAt || dateFallback,
+          .filter((visa) => Boolean(visa?.slug))
+          .map((visa) => ({
+            loc: `${SITE_URL}/visas/${visa?.slug}`,
+            lastmod: visa.updatedAt || dateFallback,
           }))
       : []
 

@@ -33,13 +33,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, categories }) 
   }, [headerTheme])
   return (
     <header
-      className="left-0 container z-20 -mt-[100px] translate-y-[124px]    max-w-7xl      "
+      className="left-0  z-20 -mt-[100px] translate-y-[124px] dark:bg-zinc-900          "
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <Link href="/" className="md:hidden ">
-        <Logo loading="eager" priority="high" />
-      </Link>
-      <DesktopNav categories={categories} data={data} />
+      <div className="max-w-7xl container ">
+        <Link href="/" className="md:hidden ">
+          <Logo loading="eager" priority="high" />
+        </Link>
+        <DesktopNav categories={categories} data={data} />
+      </div>
     </header>
   )
 }

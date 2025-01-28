@@ -9,7 +9,6 @@ import {
 import { Tilt } from '@/components/ui/tilt'
 import { getPopularDestinations } from '@/entities/visa/visa.queries'
 import type { PopularDestinationsBlock as PopularDestinationsProps, Visa } from '@/payload-types'
-import { getCountryDeclension } from '@/utilities/getCountryDeclension'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -53,39 +52,36 @@ export const PopularDestinations: React.FC<
             alwaysShow
           />
         </header>
-        <CarouselContent className=" gap-2 ">
+        <CarouselContent className=" -ml-2">
           {filteredSelectedVisas.map((visa) => (
-            <Tilt
-              className="w-full  cursor-pointer active:cursor-grabbing"
+            <CarouselItem
               key={visa.id}
-              isRevese={true}
-              rotationFactor={8}
+              className="flex basis-1/2 sm:basis-1/3 md:basis-1/4   cursor-pointer active:cursor-grabbing     pl-2"
             >
-              <CarouselItem
-                key={visa.id}
-                className="flex w-[300px]  h-96 relative bg-slate-400 rounded-sm p-4 items-end border border-zinc-200 dark:border-zinc-800 pl-4"
+              <Link
+                href={visa.href}
+                className=" flex overflow-hidden bg-slate-400 w-full relative h-96 rounded-sm p-4 items-end border border-zinc-200 dark:border-zinc-800"
+                draggable={false}
               >
-                <Link href={visa.href} className="" draggable={false}>
-                  <h3 className="text-white font-bold z-20 text-xl relative">{visa.label}</h3>
-                  <Image
-                    src={visa.imgUrl.trimEnd()}
-                    alt={`Флаг страны: ${visa.label}`}
-                    className="absolute top-4 left-4 z-20"
-                    width={34}
-                    height={34}
+                <h3 className="text-white font-bold z-20 text-xl relative">{visa.label}</h3>
+                <Image
+                  src={visa.imgUrl.trimEnd()}
+                  alt={`Флаг страны: ${visa.label}`}
+                  className="absolute top-4 left-4 z-20"
+                  width={34}
+                  height={34}
+                />
+                {visa.cover && (
+                  <Media
+                    resource={visa.cover}
+                    alt="Обложка для визы"
+                    className="before:block absolute inset-0 before:absolute before:inset-0  before:z-10 before:bg-gradient-to-t before:from-zinc-900/90"
+                    imgClassName="object-cover"
+                    fill
                   />
-                  {visa.cover && (
-                    <Media
-                      resource={visa.cover}
-                      alt="Обложка для визы"
-                      className="before:block absolute inset-0 before:absolute before:inset-0  before:z-10 before:bg-gradient-to-t before:from-zinc-900/90"
-                      imgClassName="object-cover"
-                      fill
-                    />
-                  )}
-                </Link>
-              </CarouselItem>
-            </Tilt>
+                )}
+              </Link>
+            </CarouselItem>
           ))}
         </CarouselContent>
       </Carousel>

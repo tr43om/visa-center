@@ -75,6 +75,7 @@ export const plugins: Plugin[] = [
     generateDescription,
     collections: ['visas', 'pages'],
     uploadsCollection: 'media',
+    generateImage: ({ doc }) => doc?.cover,
   }),
   // formBuilderPlugin({
   //   fields: {

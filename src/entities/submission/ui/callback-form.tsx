@@ -138,10 +138,16 @@ export default function CallbackForm() {
             )}
           />
 
-          <CredenzaFooter>
+          <CredenzaFooter className="flex-col sm:flex-col flex gap-1">
             <Button effect="shine" size="lg" type="submit" className="w-full">
               Заказать звонок
             </Button>
+            <p className="text-zinc-500 text-xs">
+              Оставляя заявку, вы даете{' '}
+              <Link href="/privacy" className="underline text-zinc-700">
+                согласие на обработку персональных данных.
+              </Link>
+            </p>
           </CredenzaFooter>
         </form>
       </Form>

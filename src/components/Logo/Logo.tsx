@@ -19,7 +19,7 @@ export const Logo = (props: Props) => {
     <Image
       alt="SunVisa logo"
       height={40}
-      width={220}
+      width={250}
       loading={loading}
       fetchPriority={'high'}
       quality={100}

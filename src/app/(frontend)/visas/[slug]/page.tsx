@@ -10,9 +10,9 @@ import type { Visa } from '@/payload-types'
 
 import { generateMeta } from '@/utilities/generateMeta'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
-import { VisaHero } from '@/heros/VisaHero'
 import { VisaInfo } from '@/blocks/VisaInfo/Component'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { MainHero } from '@/heros/Main'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -63,7 +63,7 @@ export default async function Visa({ params: paramsPromise }: Args) {
 
         {draft && <LivePreviewListener />}
 
-        <VisaHero visa={visa} />
+        <MainHero visa={visa} />
         <VisaInfo visa={visa} />
         <RenderBlocks blocks={layout} />
       </article>

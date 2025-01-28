@@ -7,12 +7,14 @@ import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { WhyUsBlock } from './why-us/Component'
 import { PopularDestinations } from './PopularDestinations/Component'
 import { Reviews } from './Reviews/Component'
+import { ContentBlock } from './Content/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
   reviews: Reviews,
   whyUs: WhyUsBlock,
   popularDestinations: PopularDestinations,
+  content: ContentBlock,
 }
 
 export const RenderBlocks: React.FC<{
@@ -33,7 +35,7 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               return (
-                <div key={index} className="py-8">
+                <div key={index} className={cn('py-8', blockType === 'archive' && 'pb-16')}>
                   <Block {...block} />
                 </div>
               )
