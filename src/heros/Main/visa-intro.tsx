@@ -23,8 +23,8 @@ export const VisaIntro = ({ visa }: VisaIntroProps) => {
         </span>
       </h1>
       <p className="text-xl text-white/90">
-        Оставьте заявку и получите варианты решения вашей задачи от визового специалиста{' '}
-        {getCountryDeclension(visa.label, 'ro')}
+        Оставьте заявку и получите варианты решения вашей задачи от визового специалиста по{' '}
+        {getCountryDeclension(visa.label, 'da')}
       </p>
     </div>
   )

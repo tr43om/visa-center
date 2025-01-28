@@ -9,13 +9,13 @@ export const getCategories = async () => {
   return categories
 }
 
-// export const getCategoryByTitle = async (title: string) => {
-//   const payload = await getPayload({ config })
+export const getCategoryById = async (id: string) => {
+  const payload = await getPayload({ config })
 
-//   const category = await payload.find({
-//     collection: 'categories',
-//     where: { title: { equals: title } },
-//     limit: 1,
-//   })
-//   return category
-// }
+  const category = await payload.find({
+    collection: 'categories',
+    where: { id: { equals: id } },
+    limit: 1,
+  })
+  return category
+}

@@ -12,6 +12,7 @@ import { Category, Visa } from '@/payload-types'
 import Image from 'next/image'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import { Media } from '@/components/Media'
+import { normalizeCountForm } from '@/utilities/normalizeCountForm'
 
 type AreaListProps = {
   navItems: Visa[]
@@ -53,7 +54,8 @@ export const AreaList = ({ navItems, category }: AreaListProps) => {
                     <div className="text-white z-20">
                       <div className="mb-2 mt-4 text-2xl font-bold">{title}</div>
                       <p className="text-sm leading-tight ">
-                        Делаем визы в {filteredNavItems.length} стран
+                        Делаем визы в {filteredNavItems.length}{' '}
+                        {normalizeCountForm(filteredNavItems.length, 'country')}
                       </p>
                     </div>
                   </Link>
@@ -83,7 +85,8 @@ export const AreaList = ({ navItems, category }: AreaListProps) => {
                 <div className="text-white z-20">
                   <div className="mb-2 mt-4 text-2xl font-bold">{title}</div>
                   <p className="text-sm leading-tight ">
-                    Делаем визы в {filteredNavItems.length} стран
+                    Делаем визы в {filteredNavItems.length}{' '}
+                    {normalizeCountForm(filteredNavItems.length, 'country')}
                   </p>
                 </div>
               </Link>

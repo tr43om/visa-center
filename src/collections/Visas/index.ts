@@ -12,6 +12,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { metaFields } from '@/fields/meta'
 import { Visa } from '@/payload-types'
+import { getCategoryById } from '@/entities/category/category.queries'
 
 export const Visas: CollectionConfig = {
   slug: 'visas',
@@ -81,6 +82,49 @@ export const Visas: CollectionConfig = {
       relationTo: 'categories',
     },
     { name: 'isPopular', label: 'Популярное направление?', type: 'checkbox', defaultValue: false },
+    {
+      type: 'group',
+      name: 'price',
+      fields: [
+        {
+          name: 'consularFee',
+          label: 'Консульский сбор (€)',
+          required: true,
+          type: 'number',
+          hooks: {
+            afterRead: [
+              async (props) => {
+                const categoryId = props?.data?.category
+                if (!categoryId) return
+
+                const categoryDocs = await getCategoryById(categoryId)
+                const category = categoryDocs.docs[0]
+                if (category.title === 'Шенген') return 90
+              },
+            ],
+          },
+        },
+        {
+          name: 'serviceFee',
+          label: 'Cервисный сбор (₸)',
+          required: true,
+          type: 'number',
+        },
+        {
+          name: 'visaFee',
+          label: 'Стоимость услуги (₸)',
+          required: true,
+          type: 'number',
+        },
+
+        {
+          name: 'processingTime',
+          label: 'Срок оформления (в днях)',
+          type: 'number',
+          defaultValue: 1,
+        },
+      ],
+    },
     {
       type: 'collapsible',
       label: 'Автозаполняемые поля',

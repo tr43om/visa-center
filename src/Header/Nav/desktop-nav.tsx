@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import { Media } from '@/components/Media'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { normalizeCountForm } from '@/utilities/normalizeCountForm'
 
 interface DesktopNavProps {
   data: Visa[]
@@ -47,13 +48,14 @@ export const DesktopNav = ({ categories, data }: DesktopNavProps) => {
                           <Media
                             resource={category.cover}
                             fill
-                            imgClassName="absolute inset-0 w-full h-full w-[300px]"
+                            imgClassName="absolute inset-0 w-full h-full w-[300px] object-cover"
                           />
                         )}
                         <div className="text-white z-20">
                           <div className="mb-2 mt-4 text-2xl font-bold">{category.title}</div>
                           <p className="text-sm leading-tight ">
-                            Делаем визы в {filteredNavItems.length} стран
+                            Делаем визы в {filteredNavItems.length}{' '}
+                            {normalizeCountForm(filteredNavItems.length, 'country')}
                           </p>
                         </div>
                       </Link>

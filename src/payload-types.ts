@@ -273,11 +273,6 @@ export interface ArchiveBlock {
 export interface Category {
   id: number;
   title: string;
-  consularFee: number;
-  serviceFee: number;
-  visaFee: number;
-  totalPrice: number;
-  processingTime: number;
   cover?: (number | null) | Media;
   parent?: (number | null) | Category;
   breadcrumbs?:
@@ -301,6 +296,12 @@ export interface Visa {
   value: string;
   category: number | Category;
   isPopular?: boolean | null;
+  price: {
+    consularFee: number;
+    serviceFee: number;
+    visaFee: number;
+    processingTime: number;
+  };
   href: string;
   label: string;
   imgUrl: string;
@@ -981,11 +982,6 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
-  consularFee?: T;
-  serviceFee?: T;
-  visaFee?: T;
-  totalPrice?: T;
-  processingTime?: T;
   cover?: T;
   parent?: T;
   breadcrumbs?:
@@ -1024,6 +1020,14 @@ export interface VisasSelect<T extends boolean = true> {
   value?: T;
   category?: T;
   isPopular?: T;
+  price?:
+    | T
+    | {
+        consularFee?: T;
+        serviceFee?: T;
+        visaFee?: T;
+        processingTime?: T;
+      };
   href?: T;
   label?: T;
   imgUrl?: T;

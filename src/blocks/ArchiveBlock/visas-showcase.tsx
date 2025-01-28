@@ -4,6 +4,7 @@ import { Media } from '@/components/Media'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Category, Visa } from '@/payload-types'
+import { normalizeCountForm } from '@/utilities/normalizeCountForm'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -27,7 +28,9 @@ export const VisasShowcase = ({ docs, categories }: VisasShowcaseProps) => {
       <CardHeader>
         <CardTitle className='text-zinc-800 font-extrabold md:text-3xl text-xl space-y-2 "'>
           Оформляем визы в более чем{' '}
-          <span className="text-indigo-500">{docs.length} стран мира</span>
+          <span className="text-indigo-500">
+            {docs.length} {normalizeCountForm(docs.length, 'country')} мира
+          </span>
         </CardTitle>
         <CardDescription className="text-zinc-600 md:text-xl">
           Просто выберите нужную страну из списка, чтобы подробно ознакомиться с информацией
@@ -70,7 +73,9 @@ export const VisasShowcase = ({ docs, categories }: VisasShowcaseProps) => {
                     />
                     <div className="text-white z-20">
                       <div className="mb-2 mt-4 text-2xl font-bold">{category.title}</div>
-                      <p className="text-sm leading-tight ">Делаем визы в {visas.length} стран</p>
+                      <p className="text-sm leading-tight ">
+                        Делаем визы в {visas.length} {normalizeCountForm(visas.length, 'country')}
+                      </p>
                     </div>
                   </Link>
                 )}

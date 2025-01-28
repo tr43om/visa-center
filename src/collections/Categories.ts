@@ -20,36 +20,7 @@ export const Categories: CollectionConfig = {
       type: 'text',
       required: true,
     },
-    {
-      name: 'consularFee',
-      label: 'Консульский сбор (€)',
-      required: true,
-      type: 'number',
-    },
-    {
-      name: 'serviceFee',
-      label: 'Cервисный сбор (₸)',
-      required: true,
-      type: 'number',
-    },
-    {
-      name: 'visaFee',
-      label: 'Стоимость услуги (₸)',
-      required: true,
-      type: 'number',
-    },
-    {
-      name: 'totalPrice',
-      label: 'Итоговая стоимость (₸)',
-      required: true,
-      type: 'number',
-    },
-    {
-      name: 'processingTime',
-      label: 'Срок оформления (в днях)',
-      required: true,
-      type: 'number',
-    },
+
     { name: 'cover', type: 'upload', relationTo: 'media', label: 'Обложка' },
   ],
 }

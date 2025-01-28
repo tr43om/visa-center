@@ -15,6 +15,7 @@ import { getVisas } from '@/entities/visa/visa.queries'
 import { getCategories } from '@/entities/category/category.queries'
 import Link from 'next/link'
 import { Media } from '@/components/Media'
+import { normalizeCountForm } from '@/utilities/normalizeCountForm'
 
 export const BottomNav = async () => {
   const visas = await getVisas()
@@ -50,13 +51,14 @@ export const BottomNav = async () => {
                           <Media
                             resource={category.cover}
                             fill
-                            imgClassName="absolute inset-0 w-full h-full w-[300px]"
+                            imgClassName="absolute inset-0 w-full h-full w-[300px] object-cover"
                           />
                         )}
                         <div className="text-white z-20">
                           <div className="mb-2 mt-4 text-2xl font-bold">{category.title}</div>
                           <p className="text-sm leading-tight ">
-                            Делаем визы в {filteredNavItems.length} стран
+                            Делаем визы в{filteredNavItems.length}{' '}
+                            {normalizeCountForm(filteredNavItems.length, 'country')}
                           </p>
                         </div>
                       </Link>

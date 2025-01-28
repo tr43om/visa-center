@@ -41,12 +41,12 @@ const AdvantageItem = ({ advantage: { description, imgUrl, title } }: AdvantageI
 }
 
 type PriceCompositionProps = {
-  serviceFee: number
-  consularFee: number
-  visaFee: number
+  price: Visa['price']
 }
 
-const PriceComposition = ({ consularFee, serviceFee, visaFee }: PriceCompositionProps) => {
+const PriceComposition = ({
+  price: { consularFee, processingTime, serviceFee, visaFee },
+}: PriceCompositionProps) => {
   const formatKZTPrice = (price: number) =>
     new Intl.NumberFormat('kz', {
       currency: 'KZT',
@@ -99,13 +99,14 @@ const PriceComposition = ({ consularFee, serviceFee, visaFee }: PriceComposition
 }
 
 export const VisaInfo = async ({ visa }: VisaInfoProps) => {
-  const category = visa.category as Category
+  const price = visa.price
   const countryVi = getCountryDeclension(visa.label, 'vi')
   const countryRo = getCountryDeclension(visa.label, 'ro')
+  const countryDa = getCountryDeclension(visa.label, 'da')
   const advantages: AdvantageItem[] = [
     {
       title: 'Поддержка 24/7',
-      description: `До и после получения визы, визовый специалист ${countryRo} всегда остается на связи`,
+      description: `До и после получения визы, визовый специалист по ${countryDa} всегда остается на связи`,
       imgUrl: getMediaUrl('advantage-1.webp'),
     },
     {
@@ -133,11 +134,11 @@ export const VisaInfo = async ({ visa }: VisaInfoProps) => {
       </CardHeader>
       <CardContent className="p-0 bg-zinc-100 grid lg:flex gap-2">
         <section className="w-full lg:w-2/5 bg-white">
-          <PriceComposition consularFee={80} serviceFee={3500} visaFee={35000} />
+          <PriceComposition price={price} />
           <div className="p-6 pb-4 space-y-4">
             <div className="space-y-2">
               <h3 className="text-2xl font-bold text-zinc-800">Понятные цены</h3>
-              <p>Визовый специалист {countryRo} сообщит Вам точную цену по вашей задаче</p>
+              <p>Визовый специалист по {countryDa} сообщит Вам точную цену по вашему запросу</p>
             </div>
             <CallbackFormTrigger>
               <Button size="lg" effect="expandIcon" className="w-full">
