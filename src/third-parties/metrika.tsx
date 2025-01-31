@@ -1,10 +1,11 @@
 'use client'
 
 import Router from 'next/router'
+
 import React, { useCallback, useEffect } from 'react'
 import ym, { YMInitializer } from 'react-yandex-metrika'
 
-const analyticsEnabled = !!(process.env.NODE_ENV === 'production')
+const analyticsEnabled = process.env.NODE_ENV === 'production'
 
 const Metrika = () => {
   const hit = useCallback((url: string) => {
@@ -24,7 +25,7 @@ const Metrika = () => {
 
   return (
     <YMInitializer
-      accounts={[Number(process.env.YM_COUNTER_ID)]}
+      accounts={[Number(process.env.NEXT_PUBLIC_ANALYTICS_ID)]}
       options={{
         defer: true,
         webvisor: true,

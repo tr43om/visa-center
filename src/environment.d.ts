@@ -15,6 +15,7 @@ declare global {
       SMTP_FROM: string
       SMTP_TO: string
       PRODUCTION_URL: string
+      NEXT_PUBLIC_ANALYTICS_ID: number
     }
   }
 }
