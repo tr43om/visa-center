@@ -13,6 +13,7 @@ declare global {
       SMTP_PASS: string
       SMTP_HOST: string
       SMTP_FROM: string
+      SMTP_TO: string
       PRODUCTION_URL: string
     }
   }

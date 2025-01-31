@@ -19,6 +19,7 @@ export interface Config {
     submissions: Submission;
     reviews: Review;
     videos: Video;
+    contacts: Contact;
     redirects: Redirect;
     search: Search;
     'payload-locked-documents': PayloadLockedDocument;
@@ -35,6 +36,7 @@ export interface Config {
     submissions: SubmissionsSelect<false> | SubmissionsSelect<true>;
     reviews: ReviewsSelect<false> | ReviewsSelect<true>;
     videos: VideosSelect<false> | VideosSelect<true>;
+    contacts: ContactsSelect<false> | ContactsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     search: SearchSelect<false> | SearchSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -300,7 +302,7 @@ export interface Visa {
     consularFee: number;
     serviceFee: number;
     visaFee: number;
-    processingTime: number;
+    processingTime?: number | null;
   };
   href: string;
   label: string;
@@ -583,6 +585,18 @@ export interface Submission {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts".
+ */
+export interface Contact {
+  id: number;
+  type: 'whatsapp' | 'email' | 'instagram' | 'phone' | 'address';
+  manager?: string | null;
+  text: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -675,6 +689,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'videos';
         value: number | Video;
+      } | null)
+    | ({
+        relationTo: 'contacts';
+        value: number | Contact;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1086,6 +1104,17 @@ export interface VideosSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contacts_select".
+ */
+export interface ContactsSelect<T extends boolean = true> {
+  type?: T;
+  manager?: T;
+  text?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

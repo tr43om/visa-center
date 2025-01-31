@@ -1,15 +1,15 @@
-import 'server-only'
 import { getPayload, Where } from 'payload'
 import config from '@payload-config'
+import { cache } from 'react'
 
-export const getCategories = async () => {
+export const getCategories = cache(async () => {
   const payload = await getPayload({ config })
 
   const categories = await payload.find({ collection: 'categories', sort: 'id' })
   return categories
-}
+})
 
-export const getCategoryById = async (id: string) => {
+export const getCategoryById = cache(async (id: string) => {
   const payload = await getPayload({ config })
 
   const category = await payload.find({
@@ -18,4 +18,4 @@ export const getCategoryById = async (id: string) => {
     limit: 1,
   })
   return category
-}
+})

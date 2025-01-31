@@ -59,7 +59,7 @@ export const ArchiveBlock: React.FC<
   }
 
   return (
-    <section className="container max-w-7xl -my-12 z-[15] relative">
+    <section className="container max-w-7xl p-0 -my-12 z-[15] relative">
       <VisasShowcase docs={visas} categories={allCategories.docs} />
     </section>
   )

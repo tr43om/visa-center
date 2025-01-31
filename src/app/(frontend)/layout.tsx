@@ -19,6 +19,15 @@ import { CallbackFormTrigger } from '@/entities/submission/ui/callback-form-trig
 import { BottomNav } from '@/Header/Nav/bottom-nav'
 import { Metrika } from '@/third-parties/metrika'
 
+import type { Viewport } from 'next'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
 

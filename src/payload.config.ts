@@ -17,18 +17,19 @@ import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
-import { Submissions } from './collections/Clients'
+import { Submissions } from './collections/Submissions'
 import { Reviews } from './collections/Reviews'
 import { Videos } from './collections/Videos'
 
 import { uploadthingStorage } from '@payloadcms/storage-uploadthing'
+import { Contacts } from './collections/Contacts'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
   email: nodemailerAdapter({
-    defaultFromAddress: process.env.FROM || '',
+    defaultFromAddress: process.env.SMTP_FROM || '',
     defaultFromName: 'SunVisa',
     // Nodemailer transportOptions
     transportOptions: {
@@ -85,7 +86,7 @@ export default buildConfig({
     },
   }),
 
-  collections: [Pages, Media, Categories, Users, Visas, Submissions, Reviews, Videos],
+  collections: [Pages, Media, Categories, Users, Visas, Submissions, Reviews, Videos, Contacts],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   upload: {

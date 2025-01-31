@@ -12,8 +12,8 @@ dependencies:
     specifier: 3.18.0
     version: 3.18.0(@types/react@19.0.1)(payload@3.18.0)(react@19.0.0)
   '@payloadcms/email-nodemailer':
-    specifier: ^3.18.0
-    version: 3.19.0(payload@3.18.0)
+    specifier: 3.18.0
+    version: 3.18.0(payload@3.18.0)
   '@payloadcms/live-preview-react':
     specifier: 3.18.0
     version: 3.18.0(react-dom@19.0.0)(react@19.0.0)
@@ -152,6 +152,9 @@ dependencies:
   react-yandex-metrika:
     specifier: ^2.6.0
     version: 2.6.0(prop-types@15.8.1)(react@19.0.0)
+  server-only:
+    specifier: ^0.0.1
+    version: 0.0.1
   sharp:
     specifier: 0.32.6
     version: 0.32.6
@@ -3175,16 +3178,6 @@ packages:
     engines: {node: ^18.20.2 || >=20.9.0}
     peerDependencies:
       payload: 3.18.0
-    dependencies:
-      nodemailer: 6.9.16
-      payload: 3.18.0(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0)(react@19.0.0)(typescript@5.7.2)
-    dev: false
-
-  /@payloadcms/email-nodemailer@3.19.0(payload@3.18.0):
-    resolution: {integrity: sha512-vGXQfQVUxMbLo/Kn0U7RhKSTFx7mjdDwdn6nH2CEoyMI548kgKE96uIHcyZKseYkvvoiVqXpizNxNG+U+F4QFA==}
-    engines: {node: ^18.20.2 || >=20.9.0}
-    peerDependencies:
-      payload: 3.19.0
     dependencies:
       nodemailer: 6.9.16
       payload: 3.18.0(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0)(react@19.0.0)(typescript@5.7.2)
@@ -10483,6 +10476,10 @@ packages:
     resolution: {integrity: sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A==}
     engines: {node: '>=10'}
     hasBin: true
+
+  /server-only@0.0.1:
+    resolution: {integrity: sha512-qepMx2JxAa5jjfzxG79yPPq+8BuFToHd1hm7kI+Z4zAq1ftQiP7HcxMhDDItrbtwVeLg/cY2JnKnrcFkmiswNA==}
+    dev: false
 
   /set-function-length@1.2.2:
     resolution: {integrity: sha512-pgRc4hJ4/sNjWCSS9AmnS40x3bNMDTknHgL5UaMBTMyJnU90EgWh1Rz+MC9eFu4BuN/UwZjKQuY/1v3rM7HMfg==}

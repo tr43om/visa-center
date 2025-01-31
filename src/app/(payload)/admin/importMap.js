@@ -28,6 +28,7 @@ import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea
 import { MetaImageComponent as MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { PayloadCountrySelect as PayloadCountrySelect_ebe1dca72dc8c5776dada0ab09f9f0d6 } from '@/components/PayloadCountrySelect/index.tsx'
+import { PayloadContactsComponent as PayloadContactsComponent_8b0ae8ee18d1b7085d77f0df29998e55 } from '@/components/PayloadContactsComponent'
 import { LinkToDoc as LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { ReindexButton as ReindexButton_aead06e4cbf6b2620c5c51c9ab283634 } from '@payloadcms/plugin-search/client'
 import { RowLabel as RowLabel_ec255a65fa6fa8d1faeb09cf35284224 } from '@/Header/RowLabel'
@@ -66,6 +67,7 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#MetaImageComponent": MetaImageComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@/components/PayloadCountrySelect/index.tsx#PayloadCountrySelect": PayloadCountrySelect_ebe1dca72dc8c5776dada0ab09f9f0d6,
+  "@/components/PayloadContactsComponent#PayloadContactsComponent": PayloadContactsComponent_8b0ae8ee18d1b7085d77f0df29998e55,
   "@payloadcms/plugin-search/client#LinkToDoc": LinkToDoc_aead06e4cbf6b2620c5c51c9ab283634,
   "@payloadcms/plugin-search/client#ReindexButton": ReindexButton_aead06e4cbf6b2620c5c51c9ab283634,
   "@/Header/RowLabel#RowLabel": RowLabel_ec255a65fa6fa8d1faeb09cf35284224,

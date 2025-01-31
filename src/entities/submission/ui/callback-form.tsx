@@ -24,11 +24,19 @@ import { parseAsBoolean, parseAsJson, parseAsString, useQueryState } from 'nuqs'
 import { submissionFormSchema, submissionSchema } from '../submission.schemas'
 import { RiInstagramFill, RiWhatsappFill } from '@remixicon/react'
 import Link from 'next/link'
+import { useGlobalContext } from '@/providers/global-provider'
 
 export default function CallbackForm() {
   const form = useForm<z.infer<typeof submissionFormSchema>>({
     resolver: zodResolver(submissionFormSchema),
   })
+
+  const { contacts } = useGlobalContext()
+
+  const whatsapp = contacts.find((contact) => contact.type === 'whatsapp')?.text
+  const instagram = contacts.find((contact) => contact.type === 'instagram')?.text
+
+  console.log({ whatsapp, instagram })
 
   const [hasSubmitted, setHasSubmitted] = useQueryState(
     'hasSubmitted',
@@ -53,35 +61,39 @@ export default function CallbackForm() {
     }
   }
 
-  if (hasSubmitted)
+  if (hasSubmitted && (whatsapp || instagram))
     return (
       <div className="space-y-2">
-        <div className="space-y-1">
-          <p className="text-slate-600">А пока, можете получше о нас узнать</p>
-          <Button
-            effect="shine"
-            variant="secondary"
-            size="lg"
-            className="justify-between w-full px-3"
-            asChild
-          >
-            <Link href={`https://www.instagram.com/sun__visa_travel?igsh=MWl0aHB6ZzJsam1laA==`}>
-              В Instagram <RiInstagramFill />
-            </Link>
-          </Button>
-        </div>
-        <div className="w-full flex  items-center gap-2">
-          <div className="w-full border-t" />
-          <p className="text-slate-400 text-sm">или</p>
-          <div className="w-full border-t" />
-        </div>
-        <div className="space-y-1">
-          <p className="text-slate-600">Если срочный вопрос</p>
-          <Button variant="secondary" size="lg" className="justify-between w-full px-3" asChild>
-            <Link href={`https://wa.me/77028438123`}>
-              Пишите в Whatsapp <RiWhatsappFill />
-            </Link>
-          </Button>
+        {instagram && (
+          <div className="space-y-1">
+            <p className="text-slate-600">А пока, можете получше о нас узнать</p>
+            <Button
+              effect="shine"
+              variant="secondary"
+              size="lg"
+              className="justify-between w-full px-3"
+              asChild
+            >
+              <Link href={instagram}>
+                В Instagram <RiInstagramFill />
+              </Link>
+            </Button>
+          </div>
+        )}
+        <div>
+          <div className="w-full flex  items-center gap-2">
+            <div className="w-full border-t" />
+            <p className="text-slate-400 text-sm">или</p>
+            <div className="w-full border-t" />
+          </div>
+          <div className="space-y-1">
+            <p className="text-slate-600">Если срочный вопрос</p>
+            <Button variant="secondary" size="lg" className="justify-between w-full px-3" asChild>
+              <Link href={`https://wa.me/${whatsapp}`}>
+                Пишите в Whatsapp <RiWhatsappFill /> {}
+              </Link>
+            </Button>
+          </div>
         </div>
       </div>
     )
@@ -128,7 +140,7 @@ export default function CallbackForm() {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Textarea placeholder="Ваши вопросы" className="resize-none" {...field} />
+                  <Textarea placeholder="Ваш запрос..." className="resize-none" {...field} />
                 </FormControl>
                 <FormDescription className="text-zinc-400">
                   Вы можете заранее задать вопросы, а мы позвоним с уже подготовленными ответами!
@@ -139,8 +151,14 @@ export default function CallbackForm() {
           />
 
           <CredenzaFooter className="flex-col sm:flex-col flex gap-1">
-            <Button effect="shine" size="lg" type="submit" className="w-full">
-              Заказать звонок
+            <Button
+              effect="shine"
+              size="lg"
+              type="submit"
+              className="w-full"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? 'Отправляем заявку...' : 'Заказать звонок'}
             </Button>
             <p className="text-zinc-500 text-xs">
               Оставляя заявку, вы даете{' '}
@@ -156,17 +174,31 @@ export default function CallbackForm() {
         <p className="text-slate-400 text-sm">или</p>
         <div className="w-full border-t" />
       </div>
-      <Button variant="secondary" size="lg" className="justify-between bg-slate-200 w-full px-3">
-        Пишите в Whatsapp <RiWhatsappFill />
-      </Button>
-      <Button
-        effect="shine"
-        variant="secondary"
-        size="lg"
-        className="justify-between bg-slate-200 w-full px-3"
-      >
-        Пишите в Instagram <RiInstagramFill />
-      </Button>
+      {whatsapp && (
+        <Button
+          variant="secondary"
+          size="lg"
+          className="justify-between bg-slate-200 w-full px-3"
+          asChild
+        >
+          <Link href={`https://wa.me/${whatsapp}`} target="_blank">
+            Пишите в Whatsapp <RiWhatsappFill />
+          </Link>
+        </Button>
+      )}
+      {instagram && (
+        <Button
+          effect="shine"
+          variant="secondary"
+          size="lg"
+          asChild
+          className="justify-between bg-slate-200 w-full px-3"
+        >
+          <Link href={instagram} target="_blank">
+            Пишите в Instagram <RiInstagramFill />
+          </Link>
+        </Button>
+      )}
     </div>
   )
 }

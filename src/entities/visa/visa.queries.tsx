@@ -1,15 +1,15 @@
-import 'server-only'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+import { cache } from 'react'
 
-export const getVisas = async () => {
+export const getVisas = cache(async () => {
   const payload = await getPayload({ config })
 
   const visas = await payload.find({ collection: 'visas', pagination: false })
   return visas
-}
+})
 
-export const getPopularDestinations = async () => {
+export const getPopularDestinations = cache(async () => {
   const payload = await getPayload({ config })
   const visas = await payload.find({
     collection: 'visas',
@@ -17,4 +17,4 @@ export const getPopularDestinations = async () => {
     pagination: false,
   })
   return visas
-}
+})
